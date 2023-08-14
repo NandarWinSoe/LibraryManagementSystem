@@ -73,7 +73,6 @@
 
 	.inputBoxStyle {
 		background: rgb(63, 167, 84);
-		color: rgb(233, 236, 240);
 		width: 230px;
 		border-radius: 4px;
 		margin-top: 11px;
@@ -81,6 +80,7 @@
 		height: 29px;
 		padding-left: 9px;
 		border: 0px;
+		color: rgb(233, 236, 240);
 	}
 
 	.button {
@@ -99,10 +99,8 @@
 </style>
 
 <body style="margin-top: 50px;">
-	<form th:each="detail,index:${form}" th:action="@{/addData}" method="post" th:object="${form}"
-			id="addBookForm">
 	<div class="body" style="background-color:rgb(140, 222, 120);">
-		<h2>Add Book</h2>
+		<h2>Update Book</h2>
 	</div>
 	<div class="body">
 		<div class="column1" style="background-color:rgb(140, 222, 120);">
@@ -116,6 +114,8 @@
 			<div class="labelStyle">Author</div>
 			<div class="labelStyle">Produce Year</div>
 			<div class="labelStyle">Book Type</div>
+			<button type="button" style="border-radius: 11px;margin-top: 1px;" class="button mt-4 col-6">Update Book
+			</button>
 		</div>
 		<div class="column3" style="background-color:rgb(140, 222, 120);">
 			<input class="inputBoxStyle"></input>
@@ -127,12 +127,11 @@
 				<option value="1">EBook</option>
 				<option value="2">Book</option>
 			</select>
-			<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Add
+			<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Cancel
 			</button>
 		</div>
 
 	</div>
-	</form>
 </body>
 
 </html>
