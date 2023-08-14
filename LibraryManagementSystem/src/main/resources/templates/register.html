@@ -11,20 +11,45 @@
 		/* Add this line to center horizontally */
 		justify-content: center;
 		align-items: center;
-		display: flex;
-		width: 45%;
+		width: 25%;
 		border-radius: 8px;
+		text-align: center;
+		border: 0.5px solid #ccc;
+		height: 400px;
 		/* Should be removed. Only for demonstration */
+	}
+
+	.inputBoxStyle {
+		background: rgb(238, 252, 220);
+		width: 255px;
+		margin-top: 11px;
+		margin-bottom: 10px;
+		height: 29px;
+		padding-left: 9px;
+		border: 0.5px solid #ccc;
+	}
+
+	.button {
+		background: rgb(140, 222, 120);
+		;
+		width: 265px;
+		margin-top: 11px;
+		margin-bottom: 4px;
+		height: 29px;
+		padding-left: 9px;
+		border: 0px;
 	}
 </style>
 
-<body>
+<body style="margin-top: 10%;">
 	<div class="form">
-		<h2>Register</h2><br>
-		<div></div><input class="inputBoxStyle">Enter usernmae</input>
-		<div></div><input class="inputBoxStyle">Enter email</input>
-		<div><input class="inputBoxStyle">Enter password</input></div>
-		<div><input class="inputBoxStyle">Enter phone no</input></div>
+		<h2 style="color: darkgreen;">Register</h2>
+		<div><input class="inputBoxStyle" placeholder="Enter username"></input></div>
+		<div><input class="inputBoxStyle" placeholder="Enter email"></input></div>
+		<div><input type="password" id="pwd" name="pwd" class="inputBoxStyle" placeholder="Enter password"></input></div>
+		<div><input class="inputBoxStyle" placeholder="Enter phone no"></input></div>
+		<div><button type="button" class="button mt-4 col-6">Register</button></div>
+		<div><button type="button" class="button mt-4 col-6">Go Home</button></div>
 	</div>
 </body>
 
