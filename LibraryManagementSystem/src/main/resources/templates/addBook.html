@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+<style>
+	* {
+		box-sizing: border-box;
+	}
+
+	/* Create three equal columns that floats next to each other */
+	.body {
+		margin: 0 auto;
+		/* Add this line to center horizontally */
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		width: 45%;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column1 {
+		float: left;
+		width: 30%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column2 {
+		float: left;
+		width: 30%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column3 {
+		float: left;
+		width: 40%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.myHeader {
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	.labelStyle {
+		background: rgb(63, 167, 84);
+		color: rgb(233, 236, 240);
+		width: 145px;
+		border-radius: 4px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		height: 34px;
+		padding-top: 6px;
+		text-align: center;
+		margin-left: 18px;
+	}
+
+	.inputBoxStyle {
+		background: rgb(63, 167, 84);
+		color: rgb(233, 236, 240);
+		width: 230px;
+		border-radius: 4px;
+		margin-top: 11px;
+		margin-bottom: 20px;
+		height: 29px;
+		padding-left: 9px;
+		border: 0px;
+	}
+
+	.button {
+		background-color: rgb(64, 137, 46);
+		border: none;
+		text-align: center;
+		color: rgb(233, 236, 240);
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 10px 2px;
+		cursor: pointer;
+		width: 158px;
+		height: 33px;
+	}
+</style>
+
+<body style="margin-top: 50px;">
+	<div class="body" style="background-color:rgb(140, 222, 120);">
+		<h2>Add Book</h2>
+	</div>
+	<div class="body">
+		<div class="column1" style="background-color:rgb(140, 222, 120);">
+			<h2>Column 1</h2>
+			<p>Some text..</p>
+		</div>
+		<div class="column2" style="background-color:rgb(140, 222, 120);">
+			<div class="labelStyle">Resgistration ID</div>
+			<div class="labelStyle">Book Name</div>
+			<div class="labelStyle">Book Category</div>
+			<div class="labelStyle">Author</div>
+			<div class="labelStyle">Produce Year</div>
+			<div class="labelStyle">Book Type</div>
+		</div>
+		<div class="column3" style="background-color:rgb(140, 222, 120);">
+			<input class="inputBoxStyle"></input>
+			<input class="inputBoxStyle"></input>
+			<input class="inputBoxStyle"></input>
+			<input class="inputBoxStyle"></input>
+			<input class="inputBoxStyle"></input>
+			<select class="inputBoxStyle" name="bookType" id="bookType">
+				<option value="1">EBook</option>
+				<option value="2">Book</option>
+			</select>
+			<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Add
+			</button>
+		</div>
+
+	</div>
+</body>
+
+</html>
