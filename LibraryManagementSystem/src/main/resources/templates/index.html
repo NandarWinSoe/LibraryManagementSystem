@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<meta charset="UTF-8">
-	<title>Expenses Tracker</title>
+	<title>Library Management</title>
 	<style type="text/css">
 		.myHeader {
 			background-color: rgb(140, 222, 120);
@@ -36,6 +36,7 @@
 			margin-top: 31px;
 			width: 120px;
 			height: 35px;
+			padding-top: 5px;
 		}
 		
 		.button2 {
@@ -59,7 +60,8 @@
 			<div class="button-container">
 				<button type="button" class="button">Books</button>
 				<button type="button" class="button">EBooks</button>
-				<button type="button" class="button">Add Book</button>
+			<!--	<button type="button" th:action="@{/addBook}" class="button">Add Book</button>-->
+					<a th:href="@{/newBook}"  class="button" style="text-decoration: none;">addBook</a>
 			</div>
 		</div>
 		<div class="column">

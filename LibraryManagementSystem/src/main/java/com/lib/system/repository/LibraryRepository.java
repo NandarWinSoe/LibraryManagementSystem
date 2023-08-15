@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.lib.system.entity.Book;
 
 @Mapper
-public interface BookRepository {
+public interface LibraryRepository {
 	void save(Book book);
 }
