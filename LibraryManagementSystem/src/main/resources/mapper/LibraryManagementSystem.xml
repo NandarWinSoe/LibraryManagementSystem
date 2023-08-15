@@ -17,8 +17,8 @@
 	<!-- Add Book -->
 	<insert id="save"
 		parameterType="com.lib.system.entity.Book">
-		INSERT INTO book (name,category,author,produce_year,book_type)
-		VALUES (#{name},#{category},#{author},#{produce_year},#{book_type})
+		INSERT INTO book (id,name,category,author,produce_year,book_type) 
+		VALUES (#{id},#{name},#{category},#{author},#{produce_year},#{book_type})
 	</insert>
 
 

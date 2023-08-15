@@ -18,6 +18,7 @@ public class BookService {
 			this.libraryRepository.save(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+			System.out.print("errrrrorrr");
 		}
 	}
 
