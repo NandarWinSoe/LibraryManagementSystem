@@ -15,18 +15,5 @@
         INSERT INTO book (id,name,category,author,produce_year,book_type) 
         VALUES (#{id},#{name},#{category},#{author},#{produceYear},#{bookType})
     </insert>
-    
-    <resultMap id="resultUser" type="com.lib.system.entity.User">
-        <id property="id" column="id" />
-        <result property="name" column="name" />
-        <result property="email" column="email" />
-        <result property="password" column="password" />
-        <result property="phoneNo" column="phone_no" />
-    </resultMap>
-
-    <!-- Add User-->
-    <insert id="addUserData" parameterType="com.lib.system.entity.User">
-        INSERT INTO user01 (id,name,email,password,phone_no) 
-        VALUES (#{id},#{name},#{email},#{password},#{phoneNo})
-    </insert>
+  
 </mapper>

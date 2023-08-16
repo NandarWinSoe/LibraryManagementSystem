@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lib.system.repository.LibraryManagementSystem">
+  
+    <resultMap id="resultUser" type="com.lib.system.entity.User">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="password" column="password" />
+        <result property="phoneNo" column="phone_no" />
+    </resultMap>
+
+    <!-- Add User-->
+    <insert id="addUserData" parameterType="com.lib.system.entity.User">
+        INSERT INTO user01 (name,email,password,phone_no) 
+        VALUES (#{name},#{email},#{password},#{phoneNo})
+    </insert>
+</mapper>

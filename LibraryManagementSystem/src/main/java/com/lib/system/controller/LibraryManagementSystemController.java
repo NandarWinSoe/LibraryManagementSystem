@@ -32,9 +32,8 @@ public class LibraryManagementSystemController {
 	
 	@PostMapping("/addBookData")
 	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
-		System.out.print("Hellllll");
 		this.bookService.addData(book);
-		return "addBook";
+		return "index";
 	}
 	
 	
@@ -46,7 +45,6 @@ public class LibraryManagementSystemController {
 	
 	@PostMapping("/addUserData")
 	public String addUserData(Model model, @ModelAttribute("form") User user) {
-		System.out.print("Hellllll");
 		this.userService.addUserData(user);
 		return "index";
 	}

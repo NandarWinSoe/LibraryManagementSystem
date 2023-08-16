@@ -9,7 +9,7 @@
 	<title>Library Management</title>
 	<style type="text/css">
 		.myHeader {
-			background-color:#92D050;
+			background-color: #92D050;
 			text-align: center;
 			height: 100px;
 			display: flex;
@@ -22,26 +22,27 @@
 			width: 33.33%;
 			height: 100px;
 		}
-		
+
 		.button-container {
 			display: flex;
 			align-items: center;
-			justify-content: flex-start; /* Align buttons to the left */
+			justify-content: flex-start;
+			/* Align buttons to the left */
 		}
 
 		.button {
 			color: white;
-			background-color:#548135;
+			background-color: #548135;
 			margin-left: 33px;
 			margin-top: 31px;
 			width: 120px;
 			height: 35px;
 			padding-top: 5px;
 		}
-		
+
 		.button2 {
 			color: white;
-			background-color:#548135;
+			background-color: #548135;
 			margin-left: 33px;
 			margin-top: 31px;
 			width: 30%;
@@ -55,24 +56,36 @@
 <body>
 	<div class="myHeader">
 		<div class="column">
-
+			<div
+				style="width: 48%; height: 100%; background: #548135;color: white; border-radius: 9999px;padding-top: 33px;">
+				Library Management System</div>
 		</div>
 		<div class="column">
 			<div class="button-container">
 				<button type="button" class="button">Books</button>
 				<button type="button" class="button">EBooks</button>
-			<!--	<button type="button" th:action="@{/addBook}" class="button">Add Book</button>-->
-					<a th:href="@{/newBook}"  class="button" style="text-decoration: none;">addBook</a>
+				<!--	<button type="button" th:action="@{/addBook}" class="button">Add Book</button>-->
+				<a th:href="@{/newBook}" class="button" style="text-decoration: none;">addBook</a>
 			</div>
 		</div>
 		<div class="column">
 			<div style="width:30%"></div>
 			<div class="button-container">
 				<!--<button type="button" class="button2">Register</button>-->
-				<a th:href="@{/newRegister}"  class="button2" style="text-decoration: none;">Register</a>
+				<a th:href="@{/newRegister}" class="button2" style="text-decoration: none;">Register</a>
 				<button type="button" class="button2">Login</button>
 			</div>
 		</div>
+	</div>
+	<div style="display: flex;margin-top: 24px;">
+		<img style="width: 10%; height: 100%" src="List.png" />
+		<h5>BOOK’S CATALOG</h5>
+	</div>
+	<div style="height: 150px;width: 1000px;margin-left: 54px; background-color:#54813557;">
+		<input class="inputBoxStyle" placeholder="Enter username"></input>
+		<input class="inputBoxStyle" placeholder="Enter username"></input>
+		<input class="inputBoxStyle" placeholder="Enter username"></input>
+		<input class="inputBoxStyle" placeholder="Enter username"></input>
 	</div>
 </body>
 
