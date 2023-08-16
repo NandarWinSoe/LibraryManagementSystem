@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.lib.system.repository.LibraryRepository">
-	<resultMap id="result"
-		type="com.lib.system.entity.Book">
-		<result property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="category" column="category" />
-		<result property="author" column="author" />
-		<result property="produce_year" column="produceYear" />
-		<result property="book_type" column="bookType" />
-	</resultMap>
+<mapper namespace="com.lib.system.repository.LibraryManagementSystem">
+    <resultMap id="result" type="com.lib.system.entity.Book">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="category" column="category" />
+        <result property="author" column="author" />
+        <result property="produceYear" column="produce_year" />
+        <result property="bookType" column="book_type" />
+    </resultMap>
 
+    <!-- Add Book -->
+    <insert id="save" parameterType="com.lib.system.entity.Book">
+        INSERT INTO book (id,name,category,author,produce_year,book_type) 
+        VALUES (#{id},#{name},#{category},#{author},#{produceYear},#{bookType})
+    </insert>
+    
+    <resultMap id="resultUser" type="com.lib.system.entity.User">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="password" column="password" />
+        <result property="phoneNo" column="phone_no" />
+    </resultMap>
 
-
-	<!-- Add Book -->
-	<insert id="save"
-		parameterType="com.lib.system.entity.Book">
-		INSERT INTO book (id,name,category,author,produce_year,book_type) 
-		VALUES (#{id},#{name},#{category},#{author},#{produce_year},#{book_type})
-	</insert>
-
-
-
+    <!-- Add User-->
+    <insert id="addUserData" parameterType="com.lib.system.entity.User">
+        INSERT INTO user01 (id,name,email,password,phone_no) 
+        VALUES (#{id},#{name},#{email},#{password},#{phoneNo})
+    </insert>
 </mapper>

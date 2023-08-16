@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import com.lib.system.entity.Book;
+import com.lib.system.entity.User;
 import com.lib.system.repository.LibraryManagementSystem;
+
 @Service
 @Transactional
-public class BookService {
+public class UserService {
 	@Autowired
 	LibraryManagementSystem libraryRepository;
 	// add book
-	public void addData(Book data) {
+	public void addUserData(User data) {
 		try {
-			this.libraryRepository.save(data);
+			this.libraryRepository.addUserData(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print("errrrrorrr");
+			System.out.print("Userrrrrerrrrrorrr");
 		}
 	}
-
 }

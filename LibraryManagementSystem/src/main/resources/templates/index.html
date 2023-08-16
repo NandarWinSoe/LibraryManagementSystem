@@ -9,7 +9,7 @@
 	<title>Library Management</title>
 	<style type="text/css">
 		.myHeader {
-			background-color: rgb(140, 222, 120);
+			background-color:#92D050;
 			text-align: center;
 			height: 100px;
 			display: flex;
@@ -31,7 +31,7 @@
 
 		.button {
 			color: white;
-			background-color: darkgreen;
+			background-color:#548135;
 			margin-left: 33px;
 			margin-top: 31px;
 			width: 120px;
@@ -41,11 +41,12 @@
 		
 		.button2 {
 			color: white;
-			background-color: darkgreen;
+			background-color:#548135;
 			margin-left: 33px;
 			margin-top: 31px;
 			width: 30%;
 			height: 35px;
+			padding-top: 5px;
 		}
 	</style>
 
@@ -67,7 +68,8 @@
 		<div class="column">
 			<div style="width:30%"></div>
 			<div class="button-container">
-				<button type="button" class="button2">Register</button>
+				<!--<button type="button" class="button2">Register</button>-->
+				<a th:href="@{/newRegister}"  class="button2" style="text-decoration: none;">Register</a>
 				<button type="button" class="button2">Login</button>
 			</div>
 		</div>
