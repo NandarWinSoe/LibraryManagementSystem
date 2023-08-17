@@ -1,5 +1,6 @@
 package com.lib.system.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +33,26 @@ public class BookService {
 	 * TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 	 * System.out.print("errrrrorrr"); } }
 	 */
-
+ 
 	// get all book
 	public List<Book> getAllBook() {
 		List<Book> pList = this.libraryRepository.getAllBook();
 		return pList;
 	}
-	
-	public List<Book> findByData(Book data){
-		 List<Book> pList = this.libraryRepository.findByData();
-	
+
+	public List<Book> findByData(Book data) {
+		List<Book> pList = new ArrayList<Book>();
+		if (!data.getCategory().equals("")) {
+			pList = this.libraryRepository.findByCategory();
+		} else if (!data.getAuthor().equals("")) {
+			pList = this.libraryRepository.findByAuthor();
+		} else if (data.getId() != 0) {
+			pList = this.libraryRepository.findById();
+		} else if (!data.getName().equals("")) {
+			pList = this.libraryRepository.findByName();
+		}
+
 		return pList;
 	}
-	
-	
-
 
 }

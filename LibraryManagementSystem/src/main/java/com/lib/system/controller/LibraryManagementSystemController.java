@@ -21,7 +21,7 @@ public class LibraryManagementSystemController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("bookList", this.bookService.getAllBook());
-		System.out.print(this.bookService.getAllBook());
+	//	System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
 	
@@ -58,7 +58,9 @@ public class LibraryManagementSystemController {
 	
 	@PostMapping("/findByData")
 	public String findByData(Model model, @ModelAttribute("form") Book book) {
-		this.bookService.findByData(book);
+		System.out.print(book);
+		
+		model.addAttribute("bookList", this.bookService.findByData(book));
 		return "index";
 	}
 

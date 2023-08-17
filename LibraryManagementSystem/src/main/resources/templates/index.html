@@ -110,9 +110,9 @@
 			</div>
 		</div>
 	</div>
-	<div style="display: flex;margin-top: 24px;">
-		<img style="width: 10%; height: 100%" th:src="List.png" />
-		<h5>BOOK’S CATALOG</h5>
+	<div style="display: flex;margin-top: 24px;padding-left: 82px;margin-bottom: 10px;">
+		<img style="width: 39px; height: 43px" th:src="List.png" />
+		<h5 style="padding-top: 10px;padding-left: 19px;">BOOK’S CATALOG</h5>
 	</div>
 	<div
 		style="height: 30%;width: 70%;margin-left: 54px;margin-bottom: 10px; background-color:#54813557;display: flex;">
@@ -132,9 +132,9 @@
 			<label>BookName</label><br>
 			<input class="inputBoxStyle" name="name"></input>
 		</div>
-		<a th:href="@{/newRegister}" class="button" style="text-decoration: none;text-align: center;">Search</a>
+		<a th:href="@{/findByData}" class="button" style="text-decoration: none;text-align: center;">Search</a>
 	</div>
-	<div id="hello" class="row">
+	<div id="hello" class="row">  <!--book list-->
 		<div class="card" th:each=" book : ${bookList} " th:object="${book}">
 			<div class="custom-div" style="height: 100%;">
 				<span class="text-center" th:text="*{name}"> </span><br>
