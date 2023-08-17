@@ -15,4 +15,6 @@ public interface LibraryManagementSystem {
 	
 	
 	List<Book> getAllBook();
+	
+	List<Book> findByData();
 }

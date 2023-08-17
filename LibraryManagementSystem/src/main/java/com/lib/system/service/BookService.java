@@ -38,5 +38,14 @@ public class BookService {
 		List<Book> pList = this.libraryRepository.getAllBook();
 		return pList;
 	}
+	
+	public List<Book> findByData(Book data){
+		 List<Book> pList = this.libraryRepository.findByData();
+	
+		return pList;
+	}
+	
+	
+
 
 }

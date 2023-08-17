@@ -55,5 +55,11 @@ public class LibraryManagementSystemController {
 		this.userService.addUserData(user);
 		return "index";
 	}
+	
+	@PostMapping("/findByData")
+	public String findByData(Model model, @ModelAttribute("form") Book book) {
+		this.bookService.findByData(book);
+		return "index";
+	}
 
 }
