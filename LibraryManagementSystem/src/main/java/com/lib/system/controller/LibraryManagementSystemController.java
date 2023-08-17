@@ -21,6 +21,7 @@ public class LibraryManagementSystemController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("form", new Book());
 	//	System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
