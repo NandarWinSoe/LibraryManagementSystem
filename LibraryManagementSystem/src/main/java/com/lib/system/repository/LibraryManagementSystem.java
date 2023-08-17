@@ -18,9 +18,9 @@ public interface LibraryManagementSystem {
 	
 	List<Book> findByCategory();
 	
-	List<Book> findByAuthor();
+	List<Book> findByAuthor(String author);
 	
-	List<Book> findById();
+	List<Book> findById(int id);
 	
-	List<Book> findByName();
+	List<Book> findByName(String name);
 }

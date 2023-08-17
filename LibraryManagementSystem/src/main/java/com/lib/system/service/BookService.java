@@ -45,11 +45,13 @@ public class BookService {
 		if (!data.getCategory().equals("")) {
 			pList = this.libraryRepository.findByCategory();
 		} else if (!data.getAuthor().equals("")) {
-			pList = this.libraryRepository.findByAuthor();
+			pList = this.libraryRepository.findByAuthor(data.getAuthor());
 		} else if (data.getId() != 0) {
-			pList = this.libraryRepository.findById();
+			pList = this.libraryRepository.findById(data.getId());
 		} else if (!data.getName().equals("")) {
-			pList = this.libraryRepository.findByName();
+			pList = this.libraryRepository.findByName(data.getName());
+		}else {
+			pList = this.libraryRepository.getAllBook();
 		}
 
 		return pList;

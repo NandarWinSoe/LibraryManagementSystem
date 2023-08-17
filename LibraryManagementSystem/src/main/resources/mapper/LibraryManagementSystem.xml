@@ -22,4 +22,19 @@
 	<select id="getAllBook" resultMap="result">
 		SELECT * FROM book
 	</select>
+	
+	<select id="findByAuthor" parameterType="string" resultMap="result">
+		SELECT * FROM book
+		where author = #{author} 
+	</select>
+	
+	<select id="findByName" parameterType="string" resultMap="result">
+		SELECT * FROM book
+		where name = #{name} 
+	</select>
+	
+	<select id="findById" parameterType="int" resultMap="result">
+		SELECT * FROM book
+		where id = #{id} 
+	</select>
 </mapper>
