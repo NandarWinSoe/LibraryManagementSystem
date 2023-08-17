@@ -20,7 +20,8 @@ public class LibraryManagementSystemController {
 	
 	@GetMapping("/")
 	public String index(Model model) {
-		
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
 	
@@ -34,6 +35,12 @@ public class LibraryManagementSystemController {
 	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
 		this.bookService.addData(book);
 		return "index";
+	}
+	
+	@GetMapping("/getAllBook")
+	public String getAllBook(Model model) {
+		model.addAttribute("form", new Book());
+		return "addBook";
 	}
 	
 	

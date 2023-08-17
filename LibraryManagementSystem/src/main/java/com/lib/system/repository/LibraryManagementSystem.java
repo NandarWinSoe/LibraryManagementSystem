@@ -1,5 +1,7 @@
 package com.lib.system.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lib.system.entity.Book;
@@ -10,4 +12,7 @@ public interface LibraryManagementSystem {
 	void save(Book book);
 
 	void addUserData(User user);
+	
+	
+	List<Book> getAllBook();
 }

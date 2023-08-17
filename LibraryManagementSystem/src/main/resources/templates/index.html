@@ -61,6 +61,27 @@
 			margin-left: 19px;
 			margin-right: 16px;
 		}
+
+
+		.card {
+			background-color: #9BF899A1;
+			margin-left: 69px;
+			margin-top: 30px;
+			width: 10%;
+			height: 205px;
+		}
+
+		.custom-div {
+			padding: 20px;
+			background-color: #9BF899A1;
+			transition: background-color 0.3s, color 0.3s;
+			color: #9BF899A1 ;
+		}
+
+		.custom-div:hover {
+			background-color: #9BF899A1;
+			color:black;
+		}
 	</style>
 
 </head>
@@ -93,7 +114,7 @@
 		<img style="width: 10%; height: 100%" src="List.png" />
 		<h5>BOOK’S CATALOG</h5>
 	</div>
-	<div style="height: 150px;width: 1000px;margin-left: 54px; background-color:#54813557;">
+	<div style="height: 30%;width: 70%;margin-left: 54px; background-color:#54813557;">
 		<div>
 			<label>Category</label>
 			<label>Author</label>
@@ -105,6 +126,37 @@
 			<input class="inputBoxStyle"></input>
 			<input class="inputBoxStyle"></input>
 			<input class="inputBoxStyle"></input>
+		</div>
+	</div>
+	<div id="hello" class="row">
+		<div class="card" th:each=" book : ${bookList} " th:object="${book}">
+			<!--<div class="card m-2 border">
+				<img th:src="List.png" class="card-img-top" style="height: 50%;">
+				<div class="card-body">
+					<p class="card-title d-flex flex-row justify-content-start"
+						th:text="*{name}" style="height: 60px;"></p>
+					<p class="card-title" th:text="*{category}" style="height: 60px;"></p>
+					<label th:text="*{name}"></label><br>
+					<label th:text="*{author}"></label><br>
+					<label th:text="*{id}"></label><br>  
+					<label th:text="*{produceYear}"></label><br>
+					<div class="d-flex flex-row justify-content-center" style="align-item: center;">
+						<i class="bi bi-dash-square h3 my-auto minus" th:item-id="*{id}" th:item-name="*{name}"
+							th:item-price="*{author}" style="cursor: pointer;"></i>
+						<div th:qty-id="*{id}" class="my-auto mx-2">0</div>
+						<i class="bi bi-plus-square h3 my-auto plus" th:item-id="*{id}" th:item-name="*{name}"
+							th:item-price="*{produceYear}" style="cursor: pointer;"></i>
+					</div>
+				</div>
+			</div>-->
+			<img th:src="List.png" class="card-img-top" style="height: 50%;">
+			<div class="custom-div" >
+				<div th:text="*{name}"></div>
+				<div th:text="*{author}"></div>
+				<div th:text="*{id}"></div>
+				<div th:text="*{produceYear}"></div>
+			</div>
+			<div style="background-color:#79BD15;text-align: center;">Avialible</div>
 		</div>
 	</div>
 </body>
