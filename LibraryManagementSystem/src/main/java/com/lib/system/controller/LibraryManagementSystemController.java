@@ -64,8 +64,6 @@ public class LibraryManagementSystemController {
 	
 	@PostMapping("/findByData")
 	public String findByData(Model model, @ModelAttribute("form") Book book) {
-		System.out.print(book);
-		
 		model.addAttribute("bookList", this.bookService.findByData(book));
 		return "index";
 	}
