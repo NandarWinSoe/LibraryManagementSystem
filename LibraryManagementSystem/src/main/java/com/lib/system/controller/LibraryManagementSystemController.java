@@ -25,6 +25,7 @@ public class LibraryManagementSystemController {
 	public String index(Model model) {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("form", new Book());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
 	//	System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
@@ -40,6 +41,7 @@ public class LibraryManagementSystemController {
 	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
 		this.bookService.addData(book);
 		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
 		return "index";
 	}
 	

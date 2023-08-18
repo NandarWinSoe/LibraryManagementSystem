@@ -121,7 +121,11 @@
 
 			<div style="padding-top: 10px;text-align: center;">
 				<label>Category</label><br>
-				<input class="inputBoxStyle" th:value="${detail.category}" name="category"></input>
+				<!--<input class="inputBoxStyle" th:value="${detail.category}" name="category"></input>-->
+				<select class="inputBoxStyle" name="categoryId">
+					<option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}">
+					</option>
+				</select>
 			</div>
 			<div style="padding-top: 10px;text-align: center;">
 				<label>Author</label><br>
