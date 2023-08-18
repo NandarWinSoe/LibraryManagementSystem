@@ -16,7 +16,7 @@ public interface LibraryManagementSystem {
 	
 	List<Book> getAllBook();
 	
-	List<Book> findByCategory();
+	List<Book> findByCategory(int id);
 	
 	List<Book> findByAuthor(String author);
 	

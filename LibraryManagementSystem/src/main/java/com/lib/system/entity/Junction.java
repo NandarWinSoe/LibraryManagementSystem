@@ -15,13 +15,13 @@ public class Junction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	Integer id;
 	@Column(name = "userId")
-	int userId;
+	Integer userId;
 	@Column(name = "userName")
 	String userName;  
 	@Column(name = "bookId")
-	int bookId;
+	Integer bookId;
 	@Column(name = "bookName")
 	String bookName;
 }

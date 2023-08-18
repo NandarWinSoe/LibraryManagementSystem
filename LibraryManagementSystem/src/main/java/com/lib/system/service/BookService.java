@@ -44,17 +44,17 @@ public class BookService {
 
 	public List<Book> findByData(Book data) {
 		List<Book> pList = new ArrayList<Book>();
-		if (!data.getCategory().equals("")) {
-			pList = this.libraryRepository.findByCategory();
-		} else if (!data.getAuthor().equals("")) {
-			pList = this.libraryRepository.findByAuthor(data.getAuthor());
-		} else if (data.getId() != 0) {
-			pList = this.libraryRepository.findById(data.getId());
-		} else if (!data.getName().equals("")) {
-			pList = this.libraryRepository.findByName(data.getName());
-		}else {
-			pList = this.libraryRepository.getAllBook();
-		}
+//		if (data.getCategoryId() != 0) {
+//			pList = this.libraryRepository.findByCategory(data.getCategoryId());
+//		} else if (!data.getAuthor().equals("")) {
+//			pList = this.libraryRepository.findByAuthor(data.getAuthor());
+//		} else if (data.getId() != 0) {
+//			pList = this.libraryRepository.findById(data.getId());
+//		} else if (!data.getName().equals("")) {
+//			pList = this.libraryRepository.findByName(data.getName());
+//		}else {
+//			pList = this.libraryRepository.getAllBook();
+//		}
 
 		return pList;
 	}

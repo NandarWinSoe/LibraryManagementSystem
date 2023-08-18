@@ -16,17 +16,18 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	int id;
+	Integer id;
 	@Column(name = "name")
 	String name;
 	@Column(name = "categoryId")
-	int categoryId;
+	Integer categoryId;
 	@Column(name = "category")
 	String category;
 	@Column(name = "author")
 	String author;
 	@Column(name = "produceYear")
-	int produceYear;
+	Integer produceYear;
 	@Column(name = "bookType")
-	int bookType;
+	Integer bookType;
+	
 }

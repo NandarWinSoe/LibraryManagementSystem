@@ -22,6 +22,12 @@
 	<select id="getAllBook" resultMap="result">
 		SELECT * FROM book
 	</select>
+	
+	<select id="findByCategory" parameterType="int"
+		resultMap="result">
+		SELECT * FROM book
+		where category_id = #{categoryId}
+	</select>
 
 	<select id="findByAuthor" parameterType="string"
 		resultMap="result">

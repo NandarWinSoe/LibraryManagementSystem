@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lib.system.entity.Book;
+import com.lib.system.entity.Category;
 import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
@@ -62,12 +63,16 @@ public class LibraryManagementSystemController {
 	@PostMapping("/addUserData")
 	public String addUserData(Model model, @ModelAttribute("form") User user) {
 		this.userService.addUserData(user);
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
 	}
 	
 	@PostMapping("/findByData")
 	public String findByData(Model model, @ModelAttribute("form") Book book) {
-		model.addAttribute("bookList", this.bookService.findByData(book));
+//		model.addAttribute("bookList", this.bookService.findByData(book));
+		System.out.println(book.getId());
 		return "index";
 	}
 	
