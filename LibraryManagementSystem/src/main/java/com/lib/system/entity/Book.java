@@ -19,6 +19,8 @@ public class Book {
 	int id;
 	@Column(name = "name")
 	String name;
+	@Column(name = "categoryId")
+	int categoryId;
 	@Column(name = "category")
 	String category;
 	@Column(name = "author")

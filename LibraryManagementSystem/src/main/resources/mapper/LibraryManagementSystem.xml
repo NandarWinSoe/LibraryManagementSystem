@@ -5,6 +5,7 @@
 	<resultMap id="result" type="com.lib.system.entity.Book">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
+		<result property="categoryId" column="category_id" />
 		<result property="category" column="category" />
 		<result property="author" column="author" />
 		<result property="produceYear" column="produce_year" />
@@ -14,27 +15,61 @@
 	<!-- Add Book -->
 	<insert id="save" parameterType="com.lib.system.entity.Book">
 		INSERT INTO book
-		(id,name,category,author,produce_year,book_type)
+		(id,name,category_id,category,author,produce_year,book_type)
 		VALUES
-		(#{id},#{name},#{category},#{author},#{produceYear},#{bookType})
+		(#{id},#{name},#{categoryId},#{category},#{author},#{produceYear},#{bookType})
 	</insert>
 
 	<select id="getAllBook" resultMap="result">
 		SELECT * FROM book
 	</select>
-	
-	<select id="findByAuthor" parameterType="string" resultMap="result">
+
+	<select id="findByAuthor" parameterType="string"
+		resultMap="result">
 		SELECT * FROM book
-		where author = #{author} 
+		where author = #{author}
 	</select>
-	
-	<select id="findByName" parameterType="string" resultMap="result">
+
+	<select id="findByName" parameterType="string"
+		resultMap="result">
 		SELECT * FROM book
-		where name = #{name} 
+		where name = #{name}
 	</select>
-	
+
 	<select id="findById" parameterType="int" resultMap="result">
-		SELECT * FROM book
-		where id = #{id} 
+		SELECT *
+		FROM book
+		where id = #{id}
+	</select>
+
+	<resultMap id="resultUser" type="com.lib.system.entity.User">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+		<result property="phoneNo" column="phone_no" />
+	</resultMap>
+
+	<!-- Add User -->
+	<insert id="addUserData"
+		parameterType="com.lib.system.entity.User">
+		INSERT INTO user01 (name,email,password,phone_no)
+		VALUES (#{name},#{email},#{password},#{phoneNo})
+	</insert>
+	
+	<resultMap id="resulCategory" type="com.lib.system.entity.Category">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<!-- Add User -->
+	<select id="getAllCategory" resultMap="resulCategory">
+		SELECT * FROM category
+	</select>
+	
+	<select id="findCategoryById" parameterType="int" resultMap="resulCategory">
+		SELECT name
+		FROM category
+		where id = #{id}
 	</select>
 </mapper>

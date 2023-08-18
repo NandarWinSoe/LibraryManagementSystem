@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.lib.system.entity.Book;
 import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
+import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
 @Controller
 public class LibraryManagementSystemController {
@@ -17,6 +18,8 @@ public class LibraryManagementSystemController {
 	BookService bookService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	CategoryService categoryService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -29,12 +32,14 @@ public class LibraryManagementSystemController {
 	@GetMapping("/newBook")
 	public String add(Model model) {
 		model.addAttribute("form", new Book());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "addBook";
 	}
 	
 	@PostMapping("/addBookData")
 	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
 		this.bookService.addData(book);
+		model.addAttribute("form", new Book());
 		return "index";
 	}
 	
@@ -64,5 +69,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.findByData(book));
 		return "index";
 	}
+	
+	
 
 }

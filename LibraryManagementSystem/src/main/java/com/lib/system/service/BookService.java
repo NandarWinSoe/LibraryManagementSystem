@@ -20,6 +20,7 @@ public class BookService {
 	// add book
 	public void addData(Book data) {
 		try {
+			data.setCategory(libraryRepository.findCategoryById(data.getCategoryId()));
 			this.libraryRepository.save(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
