@@ -42,6 +42,7 @@ public class LibraryManagementSystemController {
 		this.bookService.addData(book);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
 	}
 	
