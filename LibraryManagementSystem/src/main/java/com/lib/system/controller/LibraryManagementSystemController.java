@@ -5,10 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lib.system.entity.Book;
-import com.lib.system.entity.Category;
 import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
@@ -71,11 +72,29 @@ public class LibraryManagementSystemController {
 	
 	@PostMapping("/findByData")
 	public String findByData(Model model, @ModelAttribute("form") Book book) {
-//		model.addAttribute("bookList", this.bookService.findByData(book));
-		System.out.println(book.getId());
+		if ( book.getId() == null ) {
+			book.setId(0);
+		}
+		model.addAttribute("bookList", this.bookService.findByData(book));
+		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
 	}
 	
+	@GetMapping("/findByCategory")
+	public String findByCategory(Model model,@RequestParam("id") int categoryId)  {
+		model.addAttribute("bookList", this.bookService.findByCategory(categoryId));
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("form", new Book());
+		return "index";
+	}
 	
+	@GetMapping("/findByType")
+	public String findByType(Model model,@RequestParam("id") int type)  {
+		model.addAttribute("bookList", this.bookService.findByType(type));
+		System.out.println(this.bookService.findByType(type));
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("form", new Book());
+		return "index";
+	}
 
 }

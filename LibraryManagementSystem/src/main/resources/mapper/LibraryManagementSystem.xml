@@ -46,6 +46,13 @@
 		FROM book
 		where id = #{id}
 	</select>
+	
+	
+	<select id="findByType" parameterType="int" resultMap="result">
+		SELECT *
+		FROM book
+		where book_type = #{bookType}
+	</select>
 
 	<resultMap id="resultUser" type="com.lib.system.entity.User">
 		<result property="id" column="id" />

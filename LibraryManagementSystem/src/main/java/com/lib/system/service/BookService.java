@@ -20,8 +20,8 @@ public class BookService {
 	// add book
 	public void addData(Book data) {
 		try {
-		//	System.out.print("categoryIDDDDD"+data.getCategoryId());
-		//	data.setCategory(libraryRepository.findCategoryById(data.getCategoryId()));
+			// System.out.print("categoryIDDDDD"+data.getCategoryId());
+			// data.setCategory(libraryRepository.findCategoryById(data.getCategoryId()));
 			this.libraryRepository.save(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
@@ -35,7 +35,7 @@ public class BookService {
 	 * TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 	 * System.out.print("errrrrorrr"); } }
 	 */
- 
+
 	// get all book
 	public List<Book> getAllBook() {
 		List<Book> pList = this.libraryRepository.getAllBook();
@@ -44,18 +44,31 @@ public class BookService {
 
 	public List<Book> findByData(Book data) {
 		List<Book> pList = new ArrayList<Book>();
-//		if (data.getCategoryId() != 0) {
-//			pList = this.libraryRepository.findByCategory(data.getCategoryId());
-//		} else if (!data.getAuthor().equals("")) {
-//			pList = this.libraryRepository.findByAuthor(data.getAuthor());
-//		} else if (data.getId() != 0) {
-//			pList = this.libraryRepository.findById(data.getId());
-//		} else if (!data.getName().equals("")) {
-//			pList = this.libraryRepository.findByName(data.getName());
-//		}else {
-//			pList = this.libraryRepository.getAllBook();
-//		}
+		
+		if (data.getCategoryId() != 0 && !data.getCategoryId().equals(null)) {
+			pList = this.libraryRepository.findByCategory(data.getCategoryId());
+		} else if (!data.getAuthor().equals("") && !data.getAuthor().equals(null)) {
+			pList = this.libraryRepository.findByAuthor(data.getAuthor());
+		} else if (data.getId() != 0 && data.getId() != null) {
+			pList = this.libraryRepository.findById(data.getId());
+		} else if (!data.getName().equals("") && !data.getName().equals(null)) {
+			pList = this.libraryRepository.findByName(data.getName());
+		} else {
+			pList = this.libraryRepository.getAllBook();
+		}
 
+		return pList;
+	}
+	
+	public List<Book> findByCategory(int id){
+		List<Book> pList = new ArrayList<Book>();
+		pList = this.libraryRepository.findByCategory(id);
+		return pList;
+	}
+	
+	public List<Book> findByType(int id){
+		List<Book> pList = new ArrayList<Book>();
+		pList = this.libraryRepository.findByType(id);
 		return pList;
 	}
 

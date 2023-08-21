@@ -59,9 +59,9 @@
 	}
 
 	.labelStyle {
-		background: rgb(63, 167, 84);
+		background: #79BD15;
 		color: rgb(233, 236, 240);
-		width: 145px;
+		width: 90%;
 		border-radius: 4px;
 		margin-top: 10px;
 		margin-bottom: 26px;
@@ -72,19 +72,19 @@
 	}
 
 	.inputBoxStyle {
-		background: rgb(63, 167, 84);
-		width: 230px;
+		background: #79BD15;
+		color: rgb(233, 236, 240);
+		width: 80%;
 		border-radius: 4px;
 		margin-top: 11px;
 		margin-bottom: 20px;
 		height: 29px;
 		padding-left: 9px;
 		border: 0px;
-		color: rgb(233, 236, 240);
 	}
 
 	.button {
-		background-color: rgb(64, 137, 46);
+		background-color: #035114;
 		border: none;
 		text-align: center;
 		color: rgb(233, 236, 240);
@@ -98,40 +98,51 @@
 	}
 </style>
 
-<body style="margin-top: 50px;">
-	<div class="body" style="background-color:rgb(140, 222, 120);">
-		<h2>Update Book</h2>
-	</div>
-	<div class="body">
-		<div class="column1" style="background-color:rgb(140, 222, 120);">
-			<h2>Column 1</h2>
-			<p>Some text..</p>
+<body style="margin-top: 50px; background-color: #92D050;">
+	<form th:each="detail,index:${form}" th:action="@{/addBookData}" method="post" th:object="${book}" id="addBookForm">
+		<div class="body" style="background-color:#92D050">
+			<h2>Add Book</h2>
 		</div>
-		<div class="column2" style="background-color:rgb(140, 222, 120);">
-			<div class="labelStyle">Resgistration ID</div>
-			<div class="labelStyle">Book Name</div>
-			<div class="labelStyle">Book Category</div>
-			<div class="labelStyle">Author</div>
-			<div class="labelStyle">Produce Year</div>
-			<div class="labelStyle">Book Type</div>
-			<button type="button" style="border-radius: 11px;margin-top: 1px;" class="button mt-4 col-6">Update Book
-			</button>
-		</div>
-		<div class="column3" style="background-color:rgb(140, 222, 120);">
-			<input class="inputBoxStyle"></input>
-			<input class="inputBoxStyle"></input>
-			<input class="inputBoxStyle"></input>
-			<input class="inputBoxStyle"></input>
-			<input class="inputBoxStyle"></input>
-			<select class="inputBoxStyle" name="bookType" id="bookType">
-				<option value="1">EBook</option>
-				<option value="2">Book</option>
-			</select>
-			<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Cancel
-			</button>
-		</div>
+		<div class="body">
+			<div class="column1" style="background-color:#92D050">
+				<img style="width: 219px; height: 347px" th:src="Library.png" />
+			</div>
+			<div class="column2" style="background-color:#92D050">
+				<div class="labelStyle">Resgistration ID</div>
+				<div class="labelStyle">Book Name</div>
+				<div class="labelStyle">Book Category</div>
+				<div class="labelStyle">Author</div>
+				<div class="labelStyle">Produce Year</div>
+				<div class="labelStyle">Book Type</div>
+			</div>
+			<div class="column3" style="background-color:#92D050">
+				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
+				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
+				<!--<select class="inputBoxStyle" th:each="category,index:${categoryList}" th:value="${detail.categoryId}"
+					name="categoryId">
+					<option value="${category.id}" th:text="${category.name}"></option>
+				</select>-->
+				<select class="inputBoxStyle" name="categoryId">
+					<option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}">
+					</option>
+				</select>
+				<!--		<input class="inputBoxStyle" th:value="${detail.category}" name="category"></input>-->
+				<input class="inputBoxStyle" th:value="${detail.author}" name="author"></input>
+				<input class="inputBoxStyle" th:value="${detail.produceYear} == 0 ? '': ${detail.produceYear}"
+					name="produceYear"></input>
+				<select class="inputBoxStyle" th:value="${detail.bookType}" name="bookType">
+					<option value="1">EBook</option>
+					<option value="2">Book</option>
+				</select>
+				<!--<a th:href="@{/addBookData}" class="button mt-4 col-6" style="border-radius: 11px; text-decoration: none;padding-top: 8px;">Add</a>-->
+				<input type="submit" value="Add" class="button mt-4 col-6"
+					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
+				<!--<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Add</button>-->
 
-	</div>
+			</div>
+
+		</div>
+	</form>
 </body>
 
 </html>

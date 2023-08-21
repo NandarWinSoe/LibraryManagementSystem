@@ -24,6 +24,8 @@ public interface LibraryManagementSystem {
 	
 	List<Book> findByName(String name);
 	
+	List<Book> findByType(int id);
+	
 	String findCategoryById(int id);
 	
 	List<Category> getAllCategory();

@@ -51,6 +51,24 @@
 			padding-top: 5px;
 		}
 
+		.category {
+			color: white;
+			background-color: #548135;
+			margin-left: 33px;
+			margin-top: 31px;
+			width: 120px;
+			height: 35px;
+			padding-top: 5px;
+			border: 1px;
+		}
+
+		.category-container {
+			width: 50%;
+			/* You can adjust this value to your desired width */
+			margin: 0 auto;
+			/* Center the container on the page horizontally */
+		}
+
 		.inputBoxStyle {
 			background: rgb(238, 252, 220);
 			width: 132px;
@@ -73,11 +91,11 @@
 		}
 
 		.custom-div {
-			background-image: url(Books.png) ;
+			background-image: url(Books.png);
 			padding: 20px;
 			background-color: #9BF899A1;
 			color: #9BF899A1;
-			 background-size: 84px; 
+			background-size: 84px;
 		}
 
 		.custom-div:hover {
@@ -98,8 +116,10 @@
 		</div>
 		<div class="column">
 			<div class="button-container">
-				<button type="button" class="button">Books</button>
-				<button type="button" class="button">EBooks</button>
+				<!--<button type="button" class="button">Books</button>-->
+				<a th:href="@{/findByType(id=2)}" class="button" style="text-decoration: none;">Books</a>
+				<!--<button type="button" class="button">EBooks</button>-->
+				<a th:href="@{/findByType(id=1)}" class="button" style="text-decoration: none;">EBooks</a>
 				<!--	<button type="button" th:action="@{/addBook}" class="button">Add Book</button>-->
 				<a th:href="@{/newBook}" class="button" style="text-decoration: none;">addBook</a>
 			</div>
@@ -117,57 +137,79 @@
 		<img style="width: 39px; height: 43px" th:src="List.png" />
 		<h5 style="padding-top: 10px;padding-left: 19px;">BOOK’S CATALOG</h5>
 	</div>
-	<form th:each="detail,index:${form}" th:action="@{/findByData}" method="post" th:object="${book}">
-		<div
-			style="height: 30%;width: 70%;margin-left: 54px;margin-bottom: 10px; background-color:#54813557;display: flex;">
+	<div style="display: flex;">
+		<div style="width: 75%;">
+			<form th:each="detail,index:${form}" th:action="@{/findByData}" method="post" th:object="${book}">
+				<div
+					style="height: 30%;width: 95%;margin-left: 54px;margin-bottom: 10px; background-color:#54813557;display: flex;">
 
-			<div style="padding-top: 10px;text-align: center;">
-				<label>Category</label><br>
-				<!--<input class="inputBoxStyle" th:value="${detail.category}" name="category"></input>-->
-				<select class="inputBoxStyle" name="categoryId">
-					<option value="0">-</option>
-					<option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}">
-					</option>
-				</select>
-			</div>
-			<div style="padding-top: 10px;text-align: center;">
-				<label>Author</label><br>
-				<input class="inputBoxStyle" th:value="${detail.author}" name="author"></input>
-			</div>
-			<div style="padding-top: 10px;text-align: center;">
-				<label>RegistrationNo</label><br>
-				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '': ${detail.id}" name="id"></input>
-			</div>
-			<div style="padding-top: 10px;text-align: center;">
-				<label>BookName</label><br>
-				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
-			</div>
-			<!--<a th:href="@{/findByData}" class="button" style="text-decoration: none;text-align: center;">Search</a>-->
-			<button type="submit" class="button" style="text-align: center;">Search</button>
-		</div>
-	</form>
-
-	<div id="hello" class="row"> <!--book list-->
-		<th:block th:if="${not #lists.isEmpty(bookList)}">
-			<div class="card" th:each=" book : ${bookList} " th:object="${book}">
-				<div class="custom-div" style="height: 100%;">
-					<span class="text-center" th:text="*{name}"> </span><br>
-					<span class="text-center" th:text="*{author}"> </span><br>
-					<span class="text-center" th:text="*{id}"> </span><br>
-					<span class="text-center" th:text="*{produceYear}"> </span><br>
+					<div style="padding-top: 10px;text-align: center;">
+						<label>Category</label><br>
+						<!--<input class="inputBoxStyle" th:value="${detail.category}" name="category"></input>-->
+						<select class="inputBoxStyle" name="categoryId">
+							<option value="0">-</option>
+							<option th:each="category : ${categoryList}" th:value="${category.id}"
+								th:text="${category.name}">
+							</option>
+						</select>
+					</div>
+					<div style="padding-top: 10px;text-align: center;">
+						<label>Author</label><br>
+						<input class="inputBoxStyle" th:value="${detail.author}" name="author"></input>
+					</div>
+					<div style="padding-top: 10px;text-align: center;">
+						<label>RegistrationNo</label><br>
+						<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '': ${detail.id}" name="id"></input>
+					</div>
+					<div style="padding-top: 10px;text-align: center;">
+						<label>BookName</label><br>
+						<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
+					</div>
+					<!--<a th:href="@{/findByData}" class="button" style="text-decoration: none;text-align: center;">Search</a>-->
+					<button type="submit" class="button" style="text-align: center;">Search</button>
 				</div>
-				<a th:href="@{/newRegister}"
-					style="background-color: #9BF899A1;text-align: center;width: 100%;height: 56px;">Available</a>
-				<div style="background-color:#79BD15;text-align: center;">Update</div>
+			</form>
+
+			<div id="hello" class="row"> <!--book list-->
+				<th:block th:if="${not #lists.isEmpty(bookList)}">
+					<div class="card" th:each=" book : ${bookList} " th:object="${book}">
+						<div class="custom-div" style="height: 100%;">
+							<span class="text-center" th:text="*{name}"> </span><br>
+							<span class="text-center" th:text="*{author}"> </span><br>
+							<span class="text-center" th:text="*{id}"> </span><br>
+							<span class="text-center" th:text="*{produceYear}"> </span><br>
+						</div>
+						<a th:href="@{/newRegister}"
+							style="background-color: #9BF899A1;text-align: center;width: 100%;height: 56px;">Available</a>
+						<div style="background-color:#79BD15;text-align: center;">Update</div>
+					</div>
+				</th:block>
+				<!-- Display this div when bookList is empty -->
+				<th:block th:if="${#lists.isEmpty(bookList)}">
+					<div styth:unless="${not #lists.isEmpty(bookList)}"
+						style="width: 69%;height: 300px;background-color: rgb(238, 252, 220) ;margin-left: 69px;text-align: center;">
+						<h1 style="text-align: center;padding-top: 121px;">Book Not Found</h1>
+					</div>
+				</th:block>
 			</div>
-		</th:block>
-		<!-- Display this div when bookList is empty -->
-		<th:block th:if="${#lists.isEmpty(bookList)}">
-			<div styth:unless="${not #lists.isEmpty(bookList)}"
-				style="width: 69%;height: 300px;background-color: rgb(238, 252, 220) ;margin-left: 69px;text-align: center;">
-				<h1 style="text-align: center;padding-top: 121px;">Book Not Found</h1>
+		</div>
+		<div style="width: 20%;">
+			<!--<span class="category">Book Category</span><br>
+			<a th:href="@{/newRegister}" th:each="category : ${categoryList}" th:value="${category.id}"
+				th:text="${category.name}" class="category" style="text-decoration: none;"></a>-->
+
+			<div class="category-container">
+				<span class="category">Book Category</span><br>
+				<th:block th:each="category : ${categoryList}">
+					<div class="category-row">
+						<a th:href="@{/findByCategory(id=${category.id})}" th:value="${category.id}"
+							th:text="${category.name}" class="category" style="text-decoration: none;"></a>
+						<!--<button type="submit" class="categroyId" th:value="${category.id}" th:text="${category.name}"
+								style="text-align: center;"></button>-->
+					</div>
+				</th:block>
 			</div>
-		</th:block>
+		</div>
 	</div>
 </body>
 
