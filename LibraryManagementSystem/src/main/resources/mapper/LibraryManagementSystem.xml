@@ -90,26 +90,26 @@
 		(#{name},#{email},#{password},#{phoneNo})
 	</insert>
 
-	<resultMap id="resulCategory"
+	<resultMap id="resultCategory"
 		type="com.lib.system.entity.Category">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 	</resultMap>
 
 	<!-- Add User -->
-	<select id="getAllCategory" resultMap="resulCategory">
+	<select id="getAllCategory" resultMap="resultCategory">
 		SELECT * FROM category
 	</select>
 
 	<select id="findCategoryById" parameterType="int"
-		resultMap="resulCategory">
+		resultMap="resultCategory">
 		SELECT name
 		FROM category
 		where id = #{id}
 	</select>
-<!-- 
+
 	<select id="getNewCatId" resultMap="resultCategory">
 		SELECT * FROM category ORDER BY id DESC
-		FETCH FIRST 1 ROWS ONLY
-	</select> -->
+		LIMIT 1 
+	</select> 
 </mapper>
