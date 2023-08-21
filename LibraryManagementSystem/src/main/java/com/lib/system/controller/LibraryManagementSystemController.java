@@ -54,6 +54,23 @@ public class LibraryManagementSystemController {
 		return "addBook";
 	}
 	
+	@GetMapping("/updateBook/{id}") // read data for update
+	public String update(Model model, @PathVariable int id) {
+		model.addAttribute("form", this.bookService.getDetail(id));
+		model.addAttribute("categoryId", this.bookService.getDetail(id).getCategoryId());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		return "updateBook";
+	}
+	
+	@PostMapping("/updateBookConfirm")
+	public String updateConfirm(Model model, @ModelAttribute("form") Book book) {
+		bookService.updateBookData(book);
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		return "index";
+	}
+	
 	
 	@GetMapping("/newRegister")
 	public String newRegister(Model model) {

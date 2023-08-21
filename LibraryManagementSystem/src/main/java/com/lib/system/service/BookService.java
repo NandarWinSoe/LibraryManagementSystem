@@ -42,9 +42,25 @@ public class BookService {
 		return pList;
 	}
 
+	// get detail
+	public Book getDetail(int id) {
+		Book book = this.libraryRepository.findByIdForUpdate(id);
+		return book;
+	}
+
+	// Update expense
+	public void updateBookData(Book book) {
+		try {
+
+			this.libraryRepository.updateBookData(book);
+		} catch (Exception e) {
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
 	public List<Book> findByData(Book data) {
 		List<Book> pList = new ArrayList<Book>();
-		
+
 		if (data.getCategoryId() != 0 && !data.getCategoryId().equals(null)) {
 			pList = this.libraryRepository.findByCategory(data.getCategoryId());
 		} else if (!data.getAuthor().equals("") && !data.getAuthor().equals(null)) {
@@ -59,14 +75,14 @@ public class BookService {
 
 		return pList;
 	}
-	
-	public List<Book> findByCategory(int id){
+
+	public List<Book> findByCategory(int id) {
 		List<Book> pList = new ArrayList<Book>();
 		pList = this.libraryRepository.findByCategory(id);
 		return pList;
 	}
-	
-	public List<Book> findByType(int id){
+
+	public List<Book> findByType(int id) {
 		List<Book> pList = new ArrayList<Book>();
 		pList = this.libraryRepository.findByType(id);
 		return pList;

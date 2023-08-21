@@ -16,11 +16,15 @@ public interface LibraryManagementSystem {
 	
 	List<Book> getAllBook();
 	
+	void updateBookData(Book book);
+	
 	List<Book> findByCategory(int id);
 	
 	List<Book> findByAuthor(String author);
 	
 	List<Book> findById(int id);
+	
+	Book findByIdForUpdate(int id);
 	
 	List<Book> findByName(String name);
 	
