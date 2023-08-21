@@ -20,5 +20,11 @@ public class CategoryService {
 		List<Category> pList = this.libraryRepository.getAllCategory();
 		return pList;
 	}
+	
+	
+	public int getNewCatId() {
+		int id = this.libraryRepository.getNewCatId().getId();
+		return id+1;
+	}
 
 }

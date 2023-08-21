@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lib.system.entity.Book;
+import com.lib.system.entity.Category;
 import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
@@ -113,5 +114,20 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		return "index";
 	}
+	
+	@GetMapping("/newCategory")
+	public String addCategory(Model model) {
+		model.addAttribute("form", new Category());
+		model.addAttribute("id", categoryService.getNewCatId());
+		return "addCategory";
+	}
+	
+	/*
+	 * @PostMapping("/addBookData") public String addConfirm(Model
+	 * model, @ModelAttribute("form") Book book) { this.bookService.addData(book);
+	 * model.addAttribute("form", new Book()); model.addAttribute("bookList",
+	 * this.bookService.getAllBook()); model.addAttribute("categoryList",
+	 * categoryService.getAllCategory()); return "index"; }
+	 */
 
 }

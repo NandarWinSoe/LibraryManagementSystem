@@ -33,4 +33,6 @@ public interface LibraryManagementSystem {
 	String findCategoryById(int id);
 	
 	List<Category> getAllCategory();
+	
+	Category getNewCatId();
 }

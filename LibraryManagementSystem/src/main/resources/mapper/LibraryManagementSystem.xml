@@ -22,20 +22,24 @@
 	<update id="updateBookData"
 		parameterType="com.lib.system.entity.Book">
 		UPDATE book
-		SET name = #{name} , category_id = #{categoryId},
-		author = #{author} , produce_year= #{produceYear} , book_type = #{bookType}
+		SET name = #{name} , category_id =
+		#{categoryId},
+		author = #{author} , produce_year= #{produceYear} ,
+		book_type = #{bookType}
 		WHERE id =
 		#{id}
 	</update>
-	
+
 	<select id="getAllBook" resultMap="result">
-		SELECT * FROM book order by name
+		SELECT * FROM book order by
+		name
 	</select>
 
 	<select id="findByCategory" parameterType="int"
 		resultMap="result">
 		SELECT * FROM book
-		where category_id = #{categoryId} order by name
+		where category_id = #{categoryId} order by
+		name
 	</select>
 
 	<select id="findByAuthor" parameterType="string"
@@ -94,7 +98,7 @@
 
 	<!-- Add User -->
 	<select id="getAllCategory" resultMap="resulCategory">
-		SELECT * FROM category 
+		SELECT * FROM category
 	</select>
 
 	<select id="findCategoryById" parameterType="int"
@@ -103,4 +107,9 @@
 		FROM category
 		where id = #{id}
 	</select>
+<!-- 
+	<select id="getNewCatId" resultMap="resultCategory">
+		SELECT * FROM category ORDER BY id DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select> -->
 </mapper>

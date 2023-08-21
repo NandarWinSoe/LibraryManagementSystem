@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+<style>
+	* {
+		box-sizing: border-box;
+	}
+
+	/* Create three equal columns that floats next to each other */
+	.body {
+		margin: 0 auto;
+		/* Add this line to center horizontally */
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		width: 45%;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column1 {
+		float: left;
+		width: 30%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column2 {
+		float: left;
+		width: 30%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.column3 {
+		float: left;
+		width: 40%;
+		padding: 10px;
+		height: 430px;
+		/* Should be removed. Only for demonstration */
+	}
+
+	.myHeader {
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	.labelStyle {
+		background: #79BD15;
+		color: rgb(233, 236, 240);
+		width: 90%;
+		border-radius: 4px;
+		margin-top: 10px;
+		margin-bottom: 26px;
+		height: 34px;
+		padding-top: 6px;
+		text-align: center;
+		margin-left: 18px;
+	}
+
+	.inputBoxStyle {
+		background: #79BD15;
+		color: rgb(233, 236, 240);
+		width: 80%;
+		border-radius: 4px;
+		margin-top: 11px;
+		margin-bottom: 20px;
+		height: 29px;
+		padding-left: 9px;
+		border: 0px;
+	}
+
+	.button {
+		background-color: #035114;
+		border: none;
+		text-align: center;
+		color: rgb(233, 236, 240);
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 10px 2px;
+		cursor: pointer;
+		width: 158px;
+		height: 33px;
+	}
+</style>
+
+<body style="margin-top: 50px; background-color: #92D050;">
+	<form th:each="detail,index:${form}" th:action="@{/addBookData}" method="post" th:object="${book}" id="addBookForm">
+		<div class="body" style="background-color:#92D050">
+			<h2>ADD BOOK CATEGORY</h2>
+		</div>
+		<div class="body">
+			<div class="column1" style="background-color:#92D050">
+				<img style="width: 219px; height: 347px" th:src="Library.png" />
+			</div>
+			<div class="column2" style="background-color:#92D050">
+				<div class="labelStyle">Category ID</div>
+				<div class="labelStyle">Category Name</div>
+			</div>
+			<div class="column3" style="background-color:#92D050">
+				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
+				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
+			</div>
+
+		</div>
+	</form>
+</body>
+
+</html>
