@@ -9,14 +9,15 @@
 		<result property="author" column="author" />
 		<result property="produceYear" column="produce_year" />
 		<result property="bookType" column="book_type" />
+		<result property="userId" column="user_id" />
 	</resultMap>
 
 	<!-- Add Book -->
 	<insert id="save" parameterType="com.lib.system.entity.Book">
 		INSERT INTO book
-		(id,name,category_id,author,produce_year,book_type)
+		(id,name,category_id,author,produce_year,book_type,user_id)
 		VALUES
-		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType})
+		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType},#{userId})
 	</insert>
 
 	<update id="updateBookData"
@@ -75,12 +76,19 @@
 	</select>
 
 	<resultMap id="resultUser" type="com.lib.system.entity.User">
-		<result property="id" column="id" />
+		<id property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="phoneNo" column="phone_no" />
 	</resultMap>
+
+	<select id="checkUser"
+		parameterType="com.lib.system.entity.User" resultMap="resultUser">
+		SELECT COALESCE(id, 0) AS id, name 
+		FROM user01
+		where name = #{name} and password = #{password}
+	</select>
 
 	<!-- Add User -->
 	<insert id="addUserData"
@@ -109,7 +117,8 @@
 	</select>
 
 	<select id="getNewCatId" resultMap="resultCategory">
-		SELECT * FROM category ORDER BY id DESC
-		LIMIT 1 
-	</select> 
+		SELECT * FROM category ORDER
+		BY id DESC
+		LIMIT 1
+	</select>
 </mapper>

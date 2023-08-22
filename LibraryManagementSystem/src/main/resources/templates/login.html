@@ -1,52 +1,133 @@
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<style>
+		.form {
+			margin: 0 auto;
+			/* Add this line to center horizontally */
+			justify-content: center;
+			align-items: center;
+			width: 25%;
+			border-radius: 8px;
+			text-align: center;
+			height: 350px;
+			/* Should be removed. Only for demonstration */
+		}
+
+		.inputBoxStyle {
+			background: rgb(238, 252, 220);
+			width: 70%;
+			margin-top: 11px;
+			margin-bottom: 10px;
+			height: 29px;
+			padding-left: 9px;
+			border: 0.5px solid #ccc;
+		}
+
+		.button {
+			background: rgb(140, 222, 120);
+			;
+			width: 70%;
+			margin-top: 11px;
+			margin-bottom: 4px;
+			height: 29px;
+			padding-left: 9px;
+			border: 0px;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			var UID;
+			var UName;
+			$('#clickLogin').click(function () {
+				var formData = $('#userForm').serialize();
+				var formDataObject = Object.fromEntries(new URLSearchParams(formData));
+
+				// Extract the value of the 'price' field
+				var pwd = formDataObject.password;
+				if (isNaN(pwd) || pwd === "") {
+					$('#checkUser span').text("Please check password。");
+					$('#checkUser').modal('show');
+					return; // Stop execution if validation fails
+				}
+				$.ajax({
+					type: 'POST',
+					url: '/checkUser',
+					data: formData,
+					success: function (response) {
+						// Handle the successful response from the server
+						//	console.log(response.charges);
+						UID = response.uId;
+						UName = response.uName;
+						if (UID == 0) {
+							$('#checkUser span').text(UName);
+							$('#checkUser').modal('show');
+						} else {
+							$('#checkUser span').text("Welcome " + UName);
+							$('#checkUser').modal('show');
+						}
+					},
+					error: function (xhr, status, error) {
+						// Handle the error response from the server
+						console.error(xhr.responseText);
+					}
+				});
+			});
+
+			$('#okButton').click(function () {
+
+				// Construct the URL with the id parameter
+				var url = 'validUser/' + UID;
+
+				// Redirect to the URL
+				window.location.href = url;
+			});
+		});
+	</script>
 </head>
-<style>
-	.form {
-		margin: 0 auto;
-		/* Add this line to center horizontally */
-		justify-content: center;
-		align-items: center;
-		width: 25%;
-		border-radius: 8px;
-		text-align: center;
-		border: 0.5px solid #ccc;
-		height: 350px;
-		/* Should be removed. Only for demonstration */
-	}
 
-	.inputBoxStyle {
-		background: rgb(238, 252, 220);
-		width: 255px;
-		margin-top: 11px;
-		margin-bottom: 10px;
-		height: 29px;
-		padding-left: 9px;
-		border: 0.5px solid #ccc;
-	}
-
-	.button {
-		background: rgb(140, 222, 120);
-		;
-		width: 265px;
-		margin-top: 11px;
-		margin-bottom: 4px;
-		height: 29px;
-		padding-left: 9px;
-		border: 0px;
-	}
-</style>
 
 <body style="margin-top: 10%;">
-	<div class="form">
-		<h2 style="color: darkgreen;">Login</h2>
-		<div><input class="inputBoxStyle" placeholder="Enter username"></input></div>
-		<div><input type="password" id="pwd" name="pwd" class="inputBoxStyle" placeholder="Enter password"></input></div>
-		<div><button type="button" class="button mt-4 col-6">Login</button></div>
-		<div><button type="button" class="button mt-4 col-6">Go Home</button></div>
+	<div style="text-align: center;">
+		<form th:each="detail,index:${form}" th:action="@{/}" method="post" th:object="${user}" id="userForm">
+			<div class="form">
+				<h2 style="color: darkgreen;">Login</h2>
+				<div><input th:value="${detail.name}" class="inputBoxStyle" name="name"
+						placeholder="Enter username"></input></div>
+				<div><input th:value="${detail.password}" type="password" name="password" class="inputBoxStyle"
+						placeholder="Enter password"></input>
+				</div>
+				<!--<div><input type="submit" value="Login" class="button mt-4 col-6"></input></div>-->
+				<div><button type="button" class="button" data-toggle="modal" data-target="#checkUser"
+						id="clickLogin">Login</button></div>
+				<div><button type="button" class="button">Go Home</button></div>
+			</div>
+		</form>
+		<!-- Modal -->
+		<div class="modal fade" id="checkUser" tabindex="-1" role="dialog" aria-labelledby="showChargesCenterTitle"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="showChargesCenterTitle" style="margin-left: 180px;">Login
+							Successful!</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+					</div>
+					<div class="modal-body"><span th:text="${charges}"></span></div>
+					<div class="modal-footer" style="height: 54px;">
+						<button type="button" class="btn btn-primary" id="okButton"
+							style="height: 34px;margin-top: -3px;text-align: center;text-align: center;">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 

@@ -35,4 +35,6 @@ public interface LibraryManagementSystem {
 	List<Category> getAllCategory();
 	
 	Category getNewCatId();
+	
+	User checkUser(String name,String password);
 }

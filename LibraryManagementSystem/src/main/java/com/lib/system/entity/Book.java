@@ -29,5 +29,7 @@ public class Book {
 	Integer produceYear;
 	@Column(name = "bookType")
 	Integer bookType;
+	@Column(name = "userId")
+	Integer userId;
 	
 }

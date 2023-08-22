@@ -1,5 +1,8 @@
 package com.lib.system.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lib.system.entity.Book;
 import com.lib.system.entity.Category;
@@ -15,6 +19,7 @@ import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
+
 @Controller
 public class LibraryManagementSystemController {
 	@Autowired
@@ -27,7 +32,19 @@ public class LibraryManagementSystemController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("user", new User());
 		model.addAttribute("form", new Book());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+	//	System.out.print(this.bookService.getAllBook());
+		return "index";
+	}
+	
+	@GetMapping("validUser/{id}")
+	public String validUser(Model model, @PathVariable int id) {
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("user", new User());
+		model.addAttribute("form", new Book());
+		model.addAttribute("id",id);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 	//	System.out.print(this.bookService.getAllBook());
 		return "index";
@@ -72,6 +89,25 @@ public class LibraryManagementSystemController {
 		return "index";
 	}
 	
+	
+	@GetMapping("/bookLend/{id}/{bookId}")
+	public String bookLend(Model model, @RequestParam("id") int userId ,@RequestParam("bookId") int bookId ) {
+		
+	//	bookService.updateBookData(book);
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		return "index";
+	}
+	
+	@GetMapping("/bookLend")
+	public String checkLoginOrNot(Model model, @ModelAttribute("form") Book book) {
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("id", -1);
+		return "index";
+	}
 	
 	@GetMapping("/newRegister")
 	public String newRegister(Model model) {
@@ -122,12 +158,63 @@ public class LibraryManagementSystemController {
 		return "addCategory";
 	}
 	
-	/*
-	 * @PostMapping("/addBookData") public String addConfirm(Model
-	 * model, @ModelAttribute("form") Book book) { this.bookService.addData(book);
-	 * model.addAttribute("form", new Book()); model.addAttribute("bookList",
-	 * this.bookService.getAllBook()); model.addAttribute("categoryList",
-	 * categoryService.getAllCategory()); return "index"; }
-	 */
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("form", new User());
+		return "login";
+	}
+	
+/*	@PostMapping("/checkUser")
+	public String checkUser(Model model, @ModelAttribute("form") User user) {
+		User loginUser = bookService.checkUser(user.getName(),user.getPassword());
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("uId",loginUser.getId());
+		model.addAttribute("uName", loginUser.getName());
+		return "index";
+	} */
+	
+//	@PostMapping("/checkUser")
+//	@ResponseBody // Add this annotation to indicate that the return value should be serialized to JSON
+//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
+//	    Map<String, Object> response = new HashMap<>();
+//	    User loginUser = bookService.checkUser(user.getName(), user.getPassword());
+//	    int id = 0;
+//	    String name ="";
+//	    if ( !loginUser.getId().equals(null)) {
+//	    	id = loginUser.getId();
+//	    	name = loginUser.getName();
+//	    }
+//	    // You can add user information to the response map
+//	    response.put("uId", id);
+//	    response.put("uName",name);
+//
+//	    return response;
+//	}
+	
+	@PostMapping("/checkUser")
+	@ResponseBody
+	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    User loginUser = bookService.checkUser(user.getName(), user.getPassword());
+	    
+	    if (loginUser != null) {
+	        int id = loginUser.getId();
+	        String name = loginUser.getName();
+	        
+	        response.put("uId", id);
+	        response.put("uName", name);
+	    } else {
+	        // Handle the case where loginUser is null (user not found)
+	        response.put("uId", 0);
+	        response.put("uName", "Invalid Name and Password");
+	    }
+
+	    return response;
+	}
+
+
 
 }

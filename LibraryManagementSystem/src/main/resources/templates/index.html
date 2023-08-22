@@ -19,7 +19,7 @@
 
 		.column {
 			float: left;
-			width: 33.33%;
+			width: 45%;
 			height: 100px;
 		}
 
@@ -86,12 +86,12 @@
 			background-color: #9BF899A1;
 			margin-left: 69px;
 			margin-top: 30px;
-			width: 10%;
+			width: 14%;
 			height: 205px;
 		}
 
 		.custom-div {
-			background-image: url(Books.png);
+			/*	background-image: url(Books.png); */
 			padding: 20px;
 			background-color: #9BF899A1;
 			color: #9BF899A1;
@@ -103,6 +103,10 @@
 			color: black;
 			height: 80%;
 		}
+
+		.red-font-color {
+			color: red;
+		}
 	</style>
 
 </head>
@@ -113,6 +117,9 @@
 			<div
 				style="width: 48%; height: 100%; background: #548135;color: white; border-radius: 9999px;padding-top: 33px;">
 				Library Management System</div>
+			<div th:each="id,index:${id}">
+				<input type="hidden" name="id" th:value="${id}">
+			</div>
 		</div>
 		<div class="column">
 			<div class="button-container">
@@ -130,7 +137,8 @@
 			<div class="button-container">
 				<!--<button type="button" class="button2">Register</button>-->
 				<a th:href="@{/newRegister}" class="button2" style="text-decoration: none;">Register</a>
-				<button type="button" class="button2">Login</button>
+				<a th:href="@{/login}" class="button2" style="text-decoration: none;">Login</a>
+				<!--		<button type="button" class="button2">Login</button>-->
 			</div>
 		</div>
 	</div>
@@ -180,8 +188,13 @@
 							<span class="text-center" th:text="*{id}"> </span><br>
 							<span class="text-center" th:text="*{produceYear}"> </span><br>
 						</div>
-						<a th:href="@{/newRegister}"
-							style="background-color: #9BF899A1;text-align: center;width: 100%;height: 56px;">Available</a>
+						<div th:each="id,index:${id}">
+							<input type="hidden" name="id" th:value="${id}">
+						</div>
+						<a th:href="${id} == null  ? @{/bookLend} :@{/bookLend/{id}/{bookId}(id=${id},bookId=*{id})}"
+							th:text="${id} == -1 ? 'Login First' : (*{userId} == 0 ? 'Available' : 'Already Lend')"
+							th:class="${id} == -1 ? 'red-font-color' : (*{userId} == 0 ? '' : 'red-font-color')"
+							style="background-color: #9BF899A1; text-align: center; width: 100%; height: 56px;"></a>
 						<div style="background-color:#79BD15;text-align: center;">
 							<a th:href="@{/updateBook/{id}(id=${book.id})}">Update</a>
 						</div>
