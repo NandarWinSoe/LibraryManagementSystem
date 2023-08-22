@@ -59,6 +59,14 @@ public class BookService {
 		}
 	}
 	
+	public void lendBook(int id, int bookId) {
+		try {
+			this.libraryRepository.lendBook(id,bookId);
+		} catch (Exception e) {
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+	
 	public User checkUser(String name,String password) {
 		return this.libraryRepository.checkUser(name,password);
 	}

@@ -91,9 +91,10 @@ public class LibraryManagementSystemController {
 	
 	
 	@GetMapping("/bookLend/{id}/{bookId}")
-	public String bookLend(Model model, @RequestParam("id") int userId ,@RequestParam("bookId") int bookId ) {
+	public String bookLend(Model model, @PathVariable int id  , @PathVariable int bookId) {
 		
 	//	bookService.updateBookData(book);
+		bookService.lendBook(id,bookId);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());

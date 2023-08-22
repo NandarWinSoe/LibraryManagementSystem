@@ -191,7 +191,7 @@
 						<div th:each="id,index:${id}">
 							<input type="hidden" name="id" th:value="${id}">
 						</div>
-						<a th:href="${id} == null  ? @{/bookLend} :@{/bookLend/{id}/{bookId}(id=${id},bookId=*{id})}"
+						<a th:href="${id} == null  ? @{/bookLend} :@{/bookLend/{id}/{bookId}(id=${id},bookId=${book.id})}"
 							th:text="${id} == -1 ? 'Login First' : (*{userId} == 0 ? 'Available' : 'Already Lend')"
 							th:class="${id} == -1 ? 'red-font-color' : (*{userId} == 0 ? '' : 'red-font-color')"
 							style="background-color: #9BF899A1; text-align: center; width: 100%; height: 56px;"></a>

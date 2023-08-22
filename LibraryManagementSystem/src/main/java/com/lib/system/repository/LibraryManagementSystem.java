@@ -37,4 +37,6 @@ public interface LibraryManagementSystem {
 	Category getNewCatId();
 	
 	User checkUser(String name,String password);
+	
+	void lendBook(int userId, int id);
 }

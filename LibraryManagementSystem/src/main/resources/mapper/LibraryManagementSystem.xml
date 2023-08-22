@@ -31,6 +31,12 @@
 		#{id}
 	</update>
 
+	<update id="lendBook" parameterType="com.lib.system.entity.Book">
+		UPDATE book
+		SET user_id = #{userId}
+		WHERE id = #{id} 
+	</update>
+
 	<select id="getAllBook" resultMap="result">
 		SELECT * FROM book order by
 		name
@@ -85,7 +91,8 @@
 
 	<select id="checkUser"
 		parameterType="com.lib.system.entity.User" resultMap="resultUser">
-		SELECT COALESCE(id, 0) AS id, name 
+		SELECT
+		COALESCE(id, 0) AS id, name
 		FROM user01
 		where name = #{name} and password = #{password}
 	</select>
