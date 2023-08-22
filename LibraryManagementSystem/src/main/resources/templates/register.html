@@ -12,9 +12,7 @@
 		justify-content: center;
 		align-items: center;
 		width: 25%;
-		border-radius: 8px;
 		text-align: center;
-		border: 0.5px solid #ccc;
 		height: 400px;
 		/* Should be removed. Only for demonstration */
 	}
@@ -52,7 +50,7 @@
 			<div><input class="inputBoxStyle" th:value="${detail.phoneNo}" name="phoneNo" placeholder="Enter phone no"></input></div>
 			<!--<div><button onclick="@{/addUserData}"type="button" class="button mt-4 col-6">Register</button></div>-->
 			<div><input type="submit" value="Register" class="button mt-4 col-6" style="text-decoration: none;"></input></div>
-			<div><button type="button" class="button mt-4 col-6">Go Home</button></div>
+			<div class="button mt-4 col-6" style="margin-left: 103px;width: 258px;"><a th:href="@{/}" style="text-decoration: none;color: black;">Go Home</a></div>
 		</div>
 	</form>
 </body>
