@@ -33,8 +33,15 @@
 
 	<update id="lendBook" parameterType="com.lib.system.entity.Book">
 		UPDATE book
-		SET user_id = #{userId}
-		WHERE id = #{id} 
+		SET user_id =
+		#{userId}
+		WHERE id = #{id}
+	</update>
+
+	<update id="returnBook" parameterType="com.lib.system.entity.Book">
+		UPDATE book
+		SET user_id = 0 
+		WHERE id = #{id}
 	</update>
 
 	<select id="getAllBook" resultMap="result">
@@ -67,6 +74,14 @@
 		where id = #{id} order by name
 	</select>
 
+
+	<select id="checkLendOrNot" parameterType="int"
+		resultMap="result">
+		SELECT *
+		FROM book
+		where id = #{id}
+	</select>
+
 	<select id="findByIdForUpdate" parameterType="int"
 		resultMap="result">
 		SELECT *
@@ -94,7 +109,8 @@
 		SELECT
 		COALESCE(id, 0) AS id, name
 		FROM user01
-		where name = #{name} and password = #{password}
+		where name = #{name} and
+		password = #{password}
 	</select>
 
 	<!-- Add User -->

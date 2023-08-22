@@ -130,6 +130,7 @@
 				<input class="inputBoxStyle" th:value="${detail.author}" name="author"></input>
 				<input class="inputBoxStyle" th:value="${detail.produceYear} == 0 ? '': ${detail.produceYear}"
 					name="produceYear"></input>
+					<input type="hidden" name="userId" th:value="${detail.userId}">
 				<select class="inputBoxStyle" th:value="${detail.bookType}" name="bookType">
 					<option value="1">EBook</option>
 					<option value="2">Book</option>

@@ -92,9 +92,15 @@ public class LibraryManagementSystemController {
 	
 	@GetMapping("/bookLend/{id}/{bookId}")
 	public String bookLend(Model model, @PathVariable int id  , @PathVariable int bookId) {
-		
-	//	bookService.updateBookData(book);
-		bookService.lendBook(id,bookId);
+		if ( bookService.checkLendOrNot(bookId).getUserId() == 0) { // can lend
+			bookService.lendBook(id,bookId);
+		}else {
+			if(bookService.checkLendOrNot(bookId).getUserId() == id ) { // return
+				bookService.returnBook(bookId);
+			}else { // other person lend
+				//nothing
+			}
+		}
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());

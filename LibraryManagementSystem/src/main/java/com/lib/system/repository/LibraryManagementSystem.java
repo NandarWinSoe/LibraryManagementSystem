@@ -39,4 +39,8 @@ public interface LibraryManagementSystem {
 	User checkUser(String name,String password);
 	
 	void lendBook(int userId, int id);
+	
+	void returnBook( int id);
+	
+	Book checkLendOrNot(int id);
 }

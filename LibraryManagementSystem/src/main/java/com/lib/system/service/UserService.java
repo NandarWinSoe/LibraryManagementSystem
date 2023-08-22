@@ -20,6 +20,7 @@ public class UserService {
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 			System.out.print("Userrrrrerrrrrorrr");
+			System.out.print(e);
 		}
 	}
 }

@@ -41,6 +41,7 @@
 			padding-left: 9px;
 			border: 0px;
 		}
+		
 	</style>
 	<script>
 		$(document).ready(function () {
@@ -107,7 +108,8 @@
 				<!--<div><input type="submit" value="Login" class="button mt-4 col-6"></input></div>-->
 				<div><button type="button" class="button" data-toggle="modal" data-target="#checkUser"
 						id="clickLogin">Login</button></div>
-				<div><button type="button" class="button">Go Home</button></div>
+				<div class="button" style="margin-left: 72px;"><a th:href="@{/}" style="text-decoration: none;color: black;">Go Home</a></div>
+
 			</div>
 		</form>
 		<!-- Modal -->

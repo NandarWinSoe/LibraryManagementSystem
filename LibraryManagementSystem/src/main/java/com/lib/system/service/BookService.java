@@ -48,6 +48,10 @@ public class BookService {
 		Book book = this.libraryRepository.findByIdForUpdate(id);
 		return book;
 	}
+	
+	public Book checkLendOrNot(int id) {
+		return this.libraryRepository.checkLendOrNot(id);
+	}
 
 	// Update expense
 	public void updateBookData(Book book) {
@@ -62,6 +66,14 @@ public class BookService {
 	public void lendBook(int id, int bookId) {
 		try {
 			this.libraryRepository.lendBook(id,bookId);
+		} catch (Exception e) {
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+	
+	public void returnBook(int bookId) {
+		try {
+			this.libraryRepository.returnBook(bookId);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 		}
