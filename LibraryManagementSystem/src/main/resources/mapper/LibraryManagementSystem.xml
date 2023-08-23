@@ -126,6 +126,13 @@
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 	</resultMap>
+	
+	<insert id="addCategory"
+		parameterType="com.lib.system.entity.Category">
+		INSERT INTO category (id,name)
+		VALUES
+		(#{id},#{name} )  
+	</insert>
 
 	<!-- Add User -->
 	<select id="getAllCategory" resultMap="resultCategory">
