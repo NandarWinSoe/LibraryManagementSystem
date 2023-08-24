@@ -164,7 +164,7 @@
 						<select class="inputBoxStyle" name="categoryId">
 							<option value="0">-</option>
 							<option th:each="category : ${categoryList}" th:value="${category.id}"
-								th:text="${category.name}">
+								th:text="${category.name}"  th:selected="${category.id == detail.category}">
 							</option>
 						</select>
 					</div>
