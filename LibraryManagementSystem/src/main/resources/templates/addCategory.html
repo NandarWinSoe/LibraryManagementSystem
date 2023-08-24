@@ -34,6 +34,7 @@
 		width: 30%;
 		padding: 10px;
 		height: 430px;
+		padding-top: 30px;
 		/* Should be removed. Only for demonstration */
 	}
 
@@ -42,6 +43,7 @@
 		width: 40%;
 		padding: 10px;
 		height: 430px;
+		padding-top: 30px;
 		/* Should be removed. Only for demonstration */
 	}
 
@@ -63,9 +65,9 @@
 		color: rgb(233, 236, 240);
 		width: 90%;
 		border-radius: 4px;
-		margin-top: 10px;
-		margin-bottom: 26px;
-		height: 34px;
+		margin-top: 13px;
+		margin-bottom: 30px;
+		height: 10%;
 		padding-top: 6px;
 		text-align: center;
 		margin-left: 18px;
@@ -78,7 +80,7 @@
 		border-radius: 4px;
 		margin-top: 11px;
 		margin-bottom: 20px;
-		height: 29px;
+		height: 10%;
 		padding-left: 9px;
 		border: 0px;
 	}
@@ -99,9 +101,9 @@
 </style>
 
 <body style="margin-top: 50px; background-color: #92D050;">
-	<form th:each="detail,index:${form}" th:action="@{/addBookData}" method="post" th:object="${book}" id="addBookForm">
+	<form th:each="detail,index:${form}" th:action="@{/addNewCategory}" method="post" th:object="${category}" >
 		<div class="body" style="background-color:#92D050">
-			<h2>ADD BOOK CATEGORY</h2>
+			<h2><b>ADD BOOK CATEGORY</b></h2>
 		</div>
 		<div class="body">
 			<div class="column1" style="background-color:#92D050">
@@ -110,16 +112,20 @@
 			<div class="column2" style="background-color:#92D050">
 				<div class="labelStyle">Category ID</div>
 				<div class="labelStyle">Category Name</div>
+				<div  style="margin-left: 50px;"><a th:href="@{/}"
+						style="text-decoration: none; padding-top: 10px;height: 42px;width: 168px;font-size: 16px;" class="button">Go Home</a></div>
 			</div>
 			<div class="column3" style="background-color:#92D050">
 				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
 				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
-
+				<input type="submit" value="Add Book Category" class="button mt-4 col-6"
+					style=" text-decoration: none;padding-top: 3px;margin-top: 21px;width: 202px;height: 41px;"></input>
 			</div>
 			<!--<div class="body">
 				<input type="submit" value="Add" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
 			</div>-->
+
 		</div>
 	</form>
 </body>

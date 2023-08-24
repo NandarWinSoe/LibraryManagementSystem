@@ -43,4 +43,6 @@ public interface LibraryManagementSystem {
 	void returnBook( int id);
 	
 	Book checkLendOrNot(int id);
+	
+	void addCategory(Category category);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import com.lib.system.entity.Category;
 import com.lib.system.repository.LibraryManagementSystem;
@@ -26,5 +27,17 @@ public class CategoryService {
 		int id = this.libraryRepository.getNewCatId().getId();
 		return id+1;
 	}
+	
+
+	// add Category
+	public void addNewCategory(Category category) {
+		try {
+			this.libraryRepository.addCategory(category);
+		} catch (Exception e) {
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+			System.out.print("errrrrorrr");
+		}
+	}
+
 
 }
