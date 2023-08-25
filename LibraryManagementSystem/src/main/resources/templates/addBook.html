@@ -129,10 +129,7 @@
 				<div class="labelStyle">Author</div>
 				<div class="labelStyle">Produce Year</div>
 				<div class="labelStyle">Book Type</div>
-				<div id="bookTypeFile" class="labelStyle">Book Type</div>
-				<div style="margin-left: 50px;"><a th:href="@{/}"
-						style="border-radius: 11px;text-decoration: none;padding-top: 7px;margin-top: 0px;margin-left: -28px;"
-						class="button  mt-4 col-6">Go Home</a></div>
+
 			</div>
 			<div class="column3" style="background-color:#92D050">
 				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
@@ -156,15 +153,18 @@
 				</select>
 				<!--<input class="inputBoxStyle" th:value="${detail.pdf}" name="pdf" id="pdfInput"
 					style="display: none;"></input>-->
-				<div class="inputBoxStyle" id="pdfInput" style="display: block;text-align: center;padding-top: 5px;" >
-					<label for="pdfInput1" >Upload File......</label>
-					<input type="file" name="document" accept="image/png,image/jpeg" id="pdfInput1"
-						required style="padding: 15px; font-size: 16px;" />
+				<div class="inputBoxStyle" id="pdfInput" style="display: block;text-align: center;padding-top: 5px;">
+					<label for="pdfInput1">Upload File......</label>
+					<input type="file" name="document" accept="image/png,image/jpeg" id="pdfInput1" required
+						style="padding: 15px; font-size: 16px;" />
 				</div>
 				<!--<a th:href="@{/addBookData}" class="button mt-4 col-6" style="border-radius: 11px; text-decoration: none;padding-top: 8px;">Add</a>-->
 				<input type="submit" value="Add" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
 				<!--<button type="button" style="border-radius: 11px;" class="button mt-4 col-6">Add</button>-->
+				<div><a th:href="@{/}"
+						style="border-radius: 11px;text-decoration: none;padding-top: 7px;margin-top: 0px; "
+						class="button  mt-4 col-6">Go Home</a></div>
 
 			</div>
 
