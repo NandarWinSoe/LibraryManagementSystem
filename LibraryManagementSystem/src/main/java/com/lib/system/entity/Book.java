@@ -31,5 +31,6 @@ public class Book {
 	Integer bookType;
 	@Column(name = "userId")
 	Integer userId;
-	
+	@Column(name = "pdf")
+	String pdf;
 }

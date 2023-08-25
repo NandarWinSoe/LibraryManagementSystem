@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import com.lib.system.entity.Book;
-import com.lib.system.entity.User;
 import com.lib.system.repository.LibraryManagementSystem;
 
 @Service
@@ -80,9 +79,7 @@ public class BookService {
 		}
 	}
 	
-	public User checkUser(String name,String password) {
-		return this.libraryRepository.checkUser(name,password);
-	}
+	
 
 	public List<Book> findByData(Book data) {
 		List<Book> pList = new ArrayList<Book>();

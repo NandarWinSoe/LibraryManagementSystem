@@ -114,6 +114,9 @@
 				<div class="labelStyle">Author</div>
 				<div class="labelStyle">Produce Year</div>
 				<div class="labelStyle">Book Type</div>
+				<div style="margin-left: 50px;"><a th:href="@{/}"
+						style="text-decoration: none; padding-top: 10px;height: 42px;width: 168px;font-size: 16px;"
+						class="button">Go Home</a></div>
 			</div>
 			<div class="column3" style="background-color:#92D050">
 				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
@@ -130,11 +133,13 @@
 				<input class="inputBoxStyle" th:value="${detail.author}" name="author"></input>
 				<input class="inputBoxStyle" th:value="${detail.produceYear} == 0 ? '': ${detail.produceYear}"
 					name="produceYear"></input>
-					<input type="hidden" name="userId" th:value="${detail.userId}">
-				<select class="inputBoxStyle" th:value="${detail.bookType}" name="bookType">
+				<input type="hidden" name="userId" th:value="${detail.userId}">
+				<select class="inputBoxStyle" th:value="${detail.bookType}" name="bookType" id="bookTypeSelect">
 					<option value="1">EBook</option>
 					<option value="2">Book</option>
 				</select>
+				<input class="inputBoxStyle" th:value="${detail.pdf}" name="pdf" id="pdfInput"
+					style="display: none;"></input>
 				<!--<a th:href="@{/addBookData}" class="button mt-4 col-6" style="border-radius: 11px; text-decoration: none;padding-top: 8px;">Add</a>-->
 				<input type="submit" value="Add" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
@@ -144,6 +149,24 @@
 
 		</div>
 	</form>
+	<script>
+		// Get references to the select element and the PDF input box
+		var bookTypeSelect = document.getElementById('bookTypeSelect');
+		var pdfInput = document.getElementById('pdfInput');
+
+		// Add an event listener to the select element
+		bookTypeSelect.addEventListener('change', function () {
+			// Check the selected value
+			if (bookTypeSelect.value === '2') {
+				// If '2' is selected (Book), show the PDF input box
+				pdfInput.style.display = 'block';
+			} else {
+				// Otherwise, hide the PDF input box
+				pdfInput.style.display = 'none';
+			}
+		});
+	</script>
+
 </body>
 
 </html>

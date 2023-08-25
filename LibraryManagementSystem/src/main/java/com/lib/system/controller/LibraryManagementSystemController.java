@@ -20,6 +20,8 @@ import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class LibraryManagementSystemController {
 	@Autowired
@@ -59,6 +61,7 @@ public class LibraryManagementSystemController {
 
 	@PostMapping("/addBookData")
 	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
+		book.setUserId(0);
 		this.bookService.addData(book);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
@@ -207,27 +210,53 @@ public class LibraryManagementSystemController {
 //
 //	    return response;
 //	}
-
+//
+//	@PostMapping("/checkUser")
+//	@ResponseBody
+//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
+//		Map<String, Object> response = new HashMap<>();
+//
+//		User loginUser = userService.checkUser(user.getName(), user.getPassword());
+//
+//		if (loginUser != null) {
+//			int id = loginUser.getId();
+//			String name = loginUser.getName();
+//
+//			response.put("uId", id);
+//			response.put("uName", name);
+//		} else {
+//			// Handle the case where loginUser is null (user not found)
+//			response.put("uId", 0);
+//			response.put("uName", "Invalid Name and Password");
+//		}
+//
+//		return response;
+//	}
+	
 	@PostMapping("/checkUser")
 	@ResponseBody
-	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
-		Map<String, Object> response = new HashMap<>();
+	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user, HttpSession session) {
+	    Map<String, Object> response = new HashMap<>();
 
-		User loginUser = bookService.checkUser(user.getName(), user.getPassword());
+	    User loginUser = userService.checkUser(user.getName(), user.getPassword());
 
-		if (loginUser != null) {
-			int id = loginUser.getId();
-			String name = loginUser.getName();
+	    if (loginUser != null) {
+	        int id = loginUser.getId();
+	        String name = loginUser.getName();
 
-			response.put("uId", id);
-			response.put("uName", name);
-		} else {
-			// Handle the case where loginUser is null (user not found)
-			response.put("uId", 0);
-			response.put("uName", "Invalid Name and Password");
-		}
+	        // Store user ID in the session
+	        session.setAttribute("userId", id);
 
-		return response;
+	        response.put("uId", id);
+	        response.put("uName", name);
+	    } else {
+	        // Handle the case where loginUser is null (user not found)
+	        response.put("uId", 0);
+	        response.put("uName", "Invalid Name and Password");
+	    }
+
+	    return response;
 	}
+
 
 }

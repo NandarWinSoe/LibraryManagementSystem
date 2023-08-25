@@ -23,4 +23,8 @@ public class UserService {
 			System.out.print(e);
 		}
 	}
+	
+	public User checkUser(String name,String password) {
+		return this.libraryRepository.checkUser(name,password);
+	}
 }
