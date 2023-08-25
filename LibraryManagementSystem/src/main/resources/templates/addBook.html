@@ -96,6 +96,21 @@
 		width: 158px;
 		height: 33px;
 	}
+
+	input[type=file]::file-selector-button {
+		margin-right: 20px;
+		border: none;
+		background: #79BD15;
+		padding: 10px 20px;
+		border-radius: 10px;
+		color: #fff;
+		cursor: pointer;
+		transition: background .2s ease-in-out;
+	}
+
+	#pdfInput1 {
+		display: none;
+	}
 </style>
 
 <body style="margin-top: 50px; background-color: #92D050;">
@@ -114,9 +129,10 @@
 				<div class="labelStyle">Author</div>
 				<div class="labelStyle">Produce Year</div>
 				<div class="labelStyle">Book Type</div>
+				<div id="bookTypeFile" class="labelStyle">Book Type</div>
 				<div style="margin-left: 50px;"><a th:href="@{/}"
-						style="text-decoration: none; padding-top: 10px;height: 42px;width: 168px;font-size: 16px;"
-						class="button">Go Home</a></div>
+						style="border-radius: 11px;text-decoration: none;padding-top: 7px;margin-top: 0px;margin-left: -28px;"
+						class="button  mt-4 col-6">Go Home</a></div>
 			</div>
 			<div class="column3" style="background-color:#92D050">
 				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
@@ -138,8 +154,13 @@
 					<option value="1">EBook</option>
 					<option value="2">Book</option>
 				</select>
-				<input class="inputBoxStyle" th:value="${detail.pdf}" name="pdf" id="pdfInput"
-					style="display: none;"></input>
+				<!--<input class="inputBoxStyle" th:value="${detail.pdf}" name="pdf" id="pdfInput"
+					style="display: none;"></input>-->
+				<div class="inputBoxStyle" id="pdfInput" style="display: block;text-align: center;padding-top: 5px;" >
+					<label for="pdfInput1" >Upload File......</label>
+					<input type="file" name="document" accept="image/png,image/jpeg" id="pdfInput1"
+						required style="padding: 15px; font-size: 16px;" />
+				</div>
 				<!--<a th:href="@{/addBookData}" class="button mt-4 col-6" style="border-radius: 11px; text-decoration: none;padding-top: 8px;">Add</a>-->
 				<input type="submit" value="Add" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
@@ -153,15 +174,18 @@
 		// Get references to the select element and the PDF input box
 		var bookTypeSelect = document.getElementById('bookTypeSelect');
 		var pdfInput = document.getElementById('pdfInput');
+		var bookTypeFile = document.getElementById('bookTypeFile');
 
 		// Add an event listener to the select element
 		bookTypeSelect.addEventListener('change', function () {
 			// Check the selected value
-			if (bookTypeSelect.value === '2') {
+			if (bookTypeSelect.value === '1') {
 				// If '2' is selected (Book), show the PDF input box
 				pdfInput.style.display = 'block';
+				bookTypeFile.style.display = 'block';
 			} else {
 				// Otherwise, hide the PDF input box
+				pdfInput.style.display = 'none';
 				pdfInput.style.display = 'none';
 			}
 		});
