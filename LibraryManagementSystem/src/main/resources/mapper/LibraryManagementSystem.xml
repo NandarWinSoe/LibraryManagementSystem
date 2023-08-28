@@ -115,7 +115,7 @@
 	</select>
 	
 	<select id="checkAdmin"
-		parameterType="com.lib.system.entity.User" resultMap="resultUser">
+		parameterType="int" resultMap="resultUser">
 		SELECT 
 		admin 
 		FROM user01

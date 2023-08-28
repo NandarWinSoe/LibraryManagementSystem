@@ -55,14 +55,14 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/newBook")
 	public String add(Model model, @RequestParam("userId") int userId) {
-		if (userService.checkAdmin(userId).equals("1")) {
+		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", new Book());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
 			return "addBook";
 		} else {
-			model.addAttribute("user", new User());
 			model.addAttribute("form", new Book());
 			model.addAttribute("userId", userId);
+			model.addAttribute("bookList", this.bookService.getAllBook());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
 			return "index";
 		}

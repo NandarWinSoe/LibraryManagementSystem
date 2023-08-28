@@ -32,7 +32,14 @@ public class UserService {
 		return this.libraryRepository.checkUser(name,password);
 	}
 	
-	public String checkAdmin(int userId) {
-		return this.libraryRepository.checkAdmin(userId);
+	public User checkAdmin(int userId) {
+		User result= new User();
+		try {
+			result= this.libraryRepository.checkAdmin(userId);
+		}catch (Exception e) {
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+			System.out.print(e);
+		}
+		return result;
 	}
 }
