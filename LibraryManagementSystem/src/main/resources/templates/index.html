@@ -145,7 +145,7 @@
 			<div class="button-container">
 				<a th:href="${userId} == null  ? @{/findByType(id=2,userId=0)} :@{/findByType(id=2,userId=${userId})}" class="button" style="text-decoration: none;">Books</a>
 				<a th:href="${userId} == null  ? @{/findByType(id=1,userId=0)} :@{/findByType(id=1,userId=${userId})}" class="button" style="text-decoration: none;">EBooks</a>
-				<a th:href="@{/newBook}" class="button" style="text-decoration: none;">Add Book</a>
+				<a th:href="${userId} == null  ? @{/} :@{/newBook(userId=${userId})}" class="button" style="text-decoration: none;">Add Book</a>
 				<a th:href="@{/newCategory}" class="button" style="text-decoration: none;">Add Category</a>
 			</div>
 		</div>

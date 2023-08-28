@@ -31,4 +31,8 @@ public class UserService {
 	public User checkUser(String name,String password) {
 		return this.libraryRepository.checkUser(name,password);
 	}
+	
+	public String checkAdmin(int userId) {
+		return this.libraryRepository.checkAdmin(userId);
+	}
 }

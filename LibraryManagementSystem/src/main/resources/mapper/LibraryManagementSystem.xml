@@ -113,6 +113,14 @@
 		where name = #{name} and
 		password = #{password}
 	</select>
+	
+	<select id="checkAdmin"
+		parameterType="com.lib.system.entity.User" resultMap="resultUser">
+		SELECT 
+		admin 
+		FROM user01
+		where id = #{id} 
+	</select>
 
 	<!-- Add User -->
 	<insert id="addUserData"

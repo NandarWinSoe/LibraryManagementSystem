@@ -14,6 +14,8 @@ public interface LibraryManagementSystem {
 
 	void addUserData(User user);
 	
+	String checkAdmin(int userId);
+	
 	List<Book> getAllBook();
 	
 	void updateBookData(Book book);
