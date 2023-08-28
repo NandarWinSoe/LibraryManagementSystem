@@ -102,6 +102,7 @@
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="phoneNo" column="phone_no" />
+		<result property="admin" column="admin"/>
 	</resultMap>
 
 	<select id="checkUser"
@@ -116,9 +117,9 @@
 	<!-- Add User -->
 	<insert id="addUserData"
 		parameterType="com.lib.system.entity.User">
-		INSERT INTO user01 (name,email,password,phone_no)
+		INSERT INTO user01 (name,email,password,phone_no,admin)
 		VALUES
-		(#{name},#{email},#{password},#{phoneNo})
+		(#{name},#{email},#{password},#{phoneNo},#{admin})
 	</insert>
 
 	<resultMap id="resultCategory"

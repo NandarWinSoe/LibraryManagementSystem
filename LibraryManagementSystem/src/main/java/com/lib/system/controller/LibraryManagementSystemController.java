@@ -36,6 +36,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("user", new User());
 		model.addAttribute("form", new Book());
+		model.addAttribute("userId", null);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		// System.out.print(this.bookService.getAllBook());
 		return "index";
@@ -134,7 +135,7 @@ public class LibraryManagementSystemController {
 		return "index";
 	}
 
-	@PostMapping("/findByData/{userId}")
+	@PostMapping("/findByData")
 	public String findByData(Model model, @ModelAttribute("form") Book book , @RequestParam("userId") int userId) {
 		if (book.getId() == null) {
 			book.setId(0);

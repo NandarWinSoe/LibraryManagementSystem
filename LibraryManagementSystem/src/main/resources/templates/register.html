@@ -43,14 +43,23 @@
 	<form th:each="detail,index:${user}" th:action="@{/addUserData}" method="post" th:object="${user}">
 		<div class="form">
 			<h2 style="color: darkgreen;">Register</h2>
-			<div><input class="inputBoxStyle" th:value="${detail.name}" name="name" placeholder="Enter username"></input></div>
-			<div><input class="inputBoxStyle" th:value="${detail.email}" name="email" placeholder="Enter email"></input></div>
-			<div><input type="password" th:value="${detail.password}" name="password" class="inputBoxStyle" placeholder="Enter password"></input>
+			<div style="margin-left: 193px;"> 
+				<input type="checkbox" id="admin" name="admin" />
+				<label for="scales">Admin</label></div>
+			<div><input class="inputBoxStyle" th:value="${detail.name}" name="name"
+					placeholder="Enter username"></input></div>
+			<div><input class="inputBoxStyle" th:value="${detail.email}" name="email" placeholder="Enter email"></input>
 			</div>
-			<div><input class="inputBoxStyle" th:value="${detail.phoneNo}" name="phoneNo" placeholder="Enter phone no"></input></div>
+			<div><input type="password" th:value="${detail.password}" name="password" class="inputBoxStyle"
+					placeholder="Enter password"></input>
+			</div>
+			<div><input class="inputBoxStyle" th:value="${detail.phoneNo}" name="phoneNo"
+					placeholder="Enter phone no"></input></div>
 			<!--<div><button onclick="@{/addUserData}"type="button" class="button mt-4 col-6">Register</button></div>-->
-			<div><input type="submit" value="Register" class="button mt-4 col-6" style="text-decoration: none;"></input></div>
-			<div class="button mt-4 col-6" style="margin-left: 103px;width: 258px;"><a th:href="@{/}" style="text-decoration: none;color: black;">Go Home</a></div>
+			<div><input type="submit" value="Register" class="button mt-4 col-6" style="text-decoration: none;"></input>
+			</div>
+			<div class="button mt-4 col-6" style="margin-left: 55px;width: 258px;"><a th:href="@{/}"
+					style="text-decoration: none;color: black;">Go Home</a></div>
 		</div>
 	</form>
 </body>

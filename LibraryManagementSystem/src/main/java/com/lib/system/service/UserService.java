@@ -16,10 +16,14 @@ public class UserService {
 	// add book
 	public void addUserData(User data) {
 		try {
+			if (data.getAdmin() == null) {
+				data.setAdmin("0");
+			}else {
+				data.setAdmin("1");
+			}
 			this.libraryRepository.addUserData(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print("Userrrrrerrrrrorrr");
 			System.out.print(e);
 		}
 	}

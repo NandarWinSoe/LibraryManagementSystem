@@ -143,8 +143,8 @@
 		</div>
 		<div class="column">
 			<div class="button-container">
-				<a th:href="@{/findByType(id=2,userId=${userId})}" class="button" style="text-decoration: none;">Books</a>
-				<a th:href="@{/findByType(id=1,userId=${userId})}" class="button" style="text-decoration: none;">EBooks</a>
+				<a th:href="${userId} == null  ? @{/findByType(id=2,userId=0)} :@{/findByType(id=2,userId=${userId})}" class="button" style="text-decoration: none;">Books</a>
+				<a th:href="${userId} == null  ? @{/findByType(id=1,userId=0)} :@{/findByType(id=1,userId=${userId})}" class="button" style="text-decoration: none;">EBooks</a>
 				<a th:href="@{/newBook}" class="button" style="text-decoration: none;">Add Book</a>
 				<a th:href="@{/newCategory}" class="button" style="text-decoration: none;">Add Category</a>
 			</div>
@@ -163,7 +163,7 @@
 	</div>
 	<div style="display: flex;">
 		<div style="width: 75%;">
-			<form th:each="detail,index:${form}" th:action="@{/findByData/{userId}(userId=${userId})}" method="post" th:object="${book}">
+			<form th:each="detail,index:${form}" th:action="${userId} == null  ? @{/findByData(userId=0)} : @{/findByData(userId=${userId})}" method="post" th:object="${book}">
 				<div
 					style="height: 30%;width: 88%;margin-left: 54px;margin-bottom: 10px; background-color:#54813557;display: flex;">
 
@@ -229,7 +229,7 @@
 			<label class="category">Book Category</label><br>
 			<th:block th:each="category : ${categoryList}">
 				<div class="row" style="margin-left: 0px;margin-top: -6px;">
-					<a th:href="@{/findByCategory(id=${category.id},userId=${userId})}" th:value="${category.id}"
+					<a th:href="${userId} == null  ? @{/findByCategory(id=${category.id},userId=0)} : @{/findByCategory(id=${category.id},userId=${userId})}" th:value="${category.id}"
 						th:text="${category.name}" class="category"
 						style="text-decoration: none; display: block;text-align: left;padding-left: 12px;"></a>
 
