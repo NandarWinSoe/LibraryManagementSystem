@@ -41,7 +41,6 @@
 			padding-left: 9px;
 			border: 0px;
 		}
-		
 	</style>
 	<script>
 		$(document).ready(function () {
@@ -50,7 +49,6 @@
 			$('#clickLogin').click(function () {
 				var formData = $('#userForm').serialize();
 				var formDataObject = Object.fromEntries(new URLSearchParams(formData));
-
 				// Extract the value of the 'price' field
 				var pwd = formDataObject.password;
 				if (isNaN(pwd) || pwd === "") {
@@ -73,6 +71,7 @@
 						} else {
 							$('#checkUser span').text("Welcome " + UName);
 							$('#checkUser').modal('show');
+							localStorage.setItem("loginId", UID);
 						}
 					},
 					error: function (xhr, status, error) {
@@ -92,6 +91,9 @@
 			});
 		});
 	</script>
+	<script>
+
+	</script>
 </head>
 
 
@@ -108,7 +110,8 @@
 				<!--<div><input type="submit" value="Login" class="button mt-4 col-6"></input></div>-->
 				<div><button type="button" class="button" data-toggle="modal" data-target="#checkUser"
 						id="clickLogin">Login</button></div>
-				<div class="button" style="margin-left: 57px;"><a th:href="@{/}" style="text-decoration: none;color: black;">Go Home</a></div>
+				<div class="button" style="margin-left: 57px;"><a th:href="@{/}"
+						style="text-decoration: none;color: black;">Go Home</a></div>
 
 			</div>
 		</form>

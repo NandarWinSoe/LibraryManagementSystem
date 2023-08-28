@@ -46,7 +46,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("user", new User());
 		model.addAttribute("form", new Book());
-		model.addAttribute("id", id);
+		model.addAttribute("userId", id);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		// System.out.print(this.bookService.getAllBook());
 		return "index";
@@ -104,6 +104,7 @@ public class LibraryManagementSystemController {
 			}
 		}
 		model.addAttribute("form", new Book());
+		model.addAttribute("userId",id);
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
@@ -114,7 +115,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		model.addAttribute("id", -1);
+		model.addAttribute("userId", 0);
 		return "index";
 	}
 
@@ -133,30 +134,34 @@ public class LibraryManagementSystemController {
 		return "index";
 	}
 
-	@PostMapping("/findByData")
-	public String findByData(Model model, @ModelAttribute("form") Book book) {
+	@PostMapping("/findByData/{userId}")
+	public String findByData(Model model, @ModelAttribute("form") Book book , @RequestParam("userId") int userId) {
 		if (book.getId() == null) {
 			book.setId(0);
 		}
+		model.addAttribute("id", book.getId());
+		model.addAttribute("userId", userId);
 		model.addAttribute("bookList", this.bookService.findByData(book));
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
 	}
 
 	@GetMapping("/findByCategory")
-	public String findByCategory(Model model, @RequestParam("id") int categoryId) {
+	public String findByCategory(Model model, @RequestParam("id") int categoryId, @RequestParam("userId") int userId) {
 		model.addAttribute("bookList", this.bookService.findByCategory(categoryId));
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("form", new Book());
+		model.addAttribute("userId", userId);
 		return "index";
 	}
 
 	@GetMapping("/findByType")
-	public String findByType(Model model, @RequestParam("id") int type) {
+	public String findByType(Model model, @RequestParam("id") int type, @RequestParam("userId") int userId) {
 		model.addAttribute("bookList", this.bookService.findByType(type));
-		System.out.println(this.bookService.findByType(type));
+	//	System.out.println(this.bookService.findByType(type));
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("form", new Book());
+		model.addAttribute("userId", userId);
 		return "index";
 	}
 
