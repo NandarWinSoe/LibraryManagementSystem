@@ -111,6 +111,20 @@
 		}
 	</style>
 	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var customDivs = document.querySelectorAll('.custom-div');
+			customDivs.forEach(function (customDiv) {
+				var bookType = customDiv.getAttribute('data-book-type');
+				var bookImage = 'Books.png';
+				var pdfImage = 'Pdf.png';
+
+				if (bookType === '2') {
+					customDiv.style.backgroundImage = 'url(' + bookImage + ')';
+				} else if (bookType === '1') {
+					customDiv.style.backgroundImage = 'url(' + pdfImage + ')';
+				}
+			});
+		});
 
 	</script>
 
@@ -183,7 +197,7 @@
 				<th:block th:if="${not #lists.isEmpty(bookList)}">
 					<div class="card" th:each=" book : ${bookList} " th:object="${book}">
 						<input type="hidden" name="bookType" th:value="*{bookType}" id="bookType">
-						<div class="custom-div" style="height: 100%;background-image: url(Pdf.png);">
+						<div class="custom-div" style="height: 100%;" th:data-book-type="${book.bookType}">
 							<span class="text-center" th:text="*{name}"> </span><br>
 							<span class="text-center" th:text="*{author}"> </span><br>
 							<span class="text-center" th:text="*{id}"> </span><br>
