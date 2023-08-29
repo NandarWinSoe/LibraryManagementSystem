@@ -10,14 +10,16 @@
 		<result property="produceYear" column="produce_year" />
 		<result property="bookType" column="book_type" />
 		<result property="userId" column="user_id" />
+		<result property="file" column="file" />
+		<result property="size" column="size" />
 	</resultMap>
 
 	<!-- Add Book -->
 	<insert id="save" parameterType="com.lib.system.entity.Book">
 		INSERT INTO book
-		(id,name,category_id,author,produce_year,book_type,user_id)
+		(id,name,category_id,author,produce_year,book_type,user_id,file,size)
 		VALUES
-		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType},#{userId})
+		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType},#{userId},#{file},#{size})
 	</insert>
 
 	<update id="updateBookData"
@@ -26,7 +28,7 @@
 		SET name = #{name} , category_id =
 		#{categoryId},
 		author = #{author} , produce_year= #{produceYear} ,
-		book_type = #{bookType}
+		book_type = #{bookType}, file = #{file}, size = #{size} 
 		WHERE id =
 		#{id}
 	</update>
