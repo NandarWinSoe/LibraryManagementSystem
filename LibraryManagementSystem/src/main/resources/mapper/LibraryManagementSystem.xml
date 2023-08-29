@@ -59,23 +59,11 @@
 		name
 	</select>
 
-<!-- 	<select id="findByAuthor" parameterType="string"
-		resultMap="result">
-		SELECT * FROM book
-		where author = #{author} order by name
-	</select>
-
-	<select id="findByName" parameterType="string"
-		resultMap="result">
-		SELECT * FROM book
-		where name = #{name} order by name
-	</select>
-
-	<select id="findById" parameterType="int" resultMap="result">
-		SELECT *
-		FROM book
-		where id = #{id} order by name
-	</select> -->
+	<!-- <select id="findByAuthor" parameterType="string" resultMap="result"> 
+		SELECT * FROM book where author = #{author} order by name </select> <select 
+		id="findByName" parameterType="string" resultMap="result"> SELECT * FROM 
+		book where name = #{name} order by name </select> <select id="findById" parameterType="int" 
+		resultMap="result"> SELECT * FROM book where id = #{id} order by name </select> -->
 
 	<select id="findByData"
 		parameterType="com.lib.system.entity.Book" resultMap="result">
@@ -160,9 +148,9 @@
 
 	<insert id="addCategory"
 		parameterType="com.lib.system.entity.Category">
-		INSERT INTO category (id,name)
+		INSERT INTO category (name)
 		VALUES
-		(#{id},#{name} )
+		(#{name} )
 	</insert>
 
 	<!-- Add User -->

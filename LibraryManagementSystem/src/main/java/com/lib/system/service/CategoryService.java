@@ -21,13 +21,17 @@ public class CategoryService {
 		List<Category> pList = this.libraryRepository.getAllCategory();
 		return pList;
 	}
-	
-	
+
 	public int getNewCatId() {
-		int id = this.libraryRepository.getNewCatId().getId();
-		return id+1;
+		int id = 0;
+		if (this.libraryRepository.getNewCatId() == null ) {
+			id = 1;
+		} else {
+			id = this.libraryRepository.getNewCatId().getId();
+			id ++;
+		}
+		return id ;
 	}
-	
 
 	// add Category
 	public void addNewCategory(Category category) {
@@ -36,8 +40,8 @@ public class CategoryService {
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 			System.out.print("errrrrorrr");
+			System.out.print(e);
 		}
 	}
-
 
 }

@@ -21,6 +21,7 @@ public interface LibraryManagementSystem {
 	void updateBookData(Book book);
 	
 	List<Book> findByCategory(int id);
+	
 //	
 //	List<Book> findByAuthor(String author);
 //	

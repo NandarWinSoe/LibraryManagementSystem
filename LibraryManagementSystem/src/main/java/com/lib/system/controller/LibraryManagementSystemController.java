@@ -205,16 +205,16 @@ public class LibraryManagementSystemController {
 		model.addAttribute("user", new User());
 		model.addAttribute("userId", userId);
 		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
-		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
+//		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", new Book());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
 			return "register";
-		} else {
-			model.addAttribute("form", new Book());
-			model.addAttribute("bookList", this.bookService.getAllBook());
-			model.addAttribute("categoryList", categoryService.getAllCategory());
-			return "index";
-		}
+//		} else {
+//			model.addAttribute("form", new Book());
+//			model.addAttribute("bookList", this.bookService.getAllBook());
+//			model.addAttribute("categoryList", categoryService.getAllCategory());
+//			return "index";
+//		}
 	}
 
 	@PostMapping("/addUserData")
@@ -260,11 +260,12 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/newCategory")
 	public String addCategory(Model model, @RequestParam("userId") int userId) {
+		Category ca = new Category();
 		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		model.addAttribute("userId", userId);
 		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
-			model.addAttribute("form", new Category());
-			model.addAttribute("id", categoryService.getNewCatId());
+			ca.setId(categoryService.getNewCatId());
+			model.addAttribute("form", ca);
 			return "addCategory";
 		} else {
 			model.addAttribute("form", new Book());
