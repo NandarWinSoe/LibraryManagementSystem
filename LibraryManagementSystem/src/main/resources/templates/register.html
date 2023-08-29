@@ -60,7 +60,7 @@
 			<!--<div><button onclick="@{/addUserData}"type="button" class="button mt-4 col-6">Register</button></div>-->
 			<div><input type="submit" value="Register" class="button mt-4 col-6" style="text-decoration: none;"></input>
 			</div>
-			<div class="button mt-4 col-6" style="margin-left: 55px;width: 258px;"><a th:href="@{/main(userId=${userId})}"
+			<div class="button mt-4 col-6" style="margin-left: 55px;width: 258px;"><a th:href="${userId} == 0 ? @{/} : @{/main(userId=${userId})}"
 					style="text-decoration: none;color: black;">Go Home</a></div>
 			<div th:each="userId,index:${userId}">
 				<input type="hidden" name="userId" th:value="${userId}">

@@ -45,7 +45,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("user", new User());
 		model.addAttribute("form", new Book());
-		model.addAttribute("userId", null);
+		model.addAttribute("userId", 0);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		// System.out.print(this.bookService.getAllBook());
 		return "index";
@@ -204,7 +204,7 @@ public class LibraryManagementSystemController {
 		// return "register";
 		model.addAttribute("user", new User());
 		model.addAttribute("userId", userId);
-		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
+	//	model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 //		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", new Book());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
