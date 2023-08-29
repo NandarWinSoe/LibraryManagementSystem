@@ -20,7 +20,6 @@ import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
 
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LibraryManagementSystemController {
@@ -41,7 +40,7 @@ public class LibraryManagementSystemController {
 		// System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
-	
+
 	@GetMapping("/main")
 	public String index(Model model, @RequestParam("userId") int userId) {
 		model.addAttribute("bookList", this.bookService.getAllBook());
@@ -100,12 +99,20 @@ public class LibraryManagementSystemController {
 	}
 
 	@GetMapping("/updateBook/{id}/{userId}") // read data for update
-	public String update(Model model, @PathVariable int id, @PathVariable int useId) {
-		model.addAttribute("form", this.bookService.getDetail(id));
-		model.addAttribute("categoryId", this.bookService.getDetail(id).getCategoryId());
-		model.addAttribute("categoryList", categoryService.getAllCategory());
-		model.addAttribute("userId", useId);
-		return "updateBook";
+	public String update(Model model, @PathVariable int id, @PathVariable int userId) {
+		model.addAttribute("userId", userId);
+		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
+			model.addAttribute("form", this.bookService.getDetail(id));
+			model.addAttribute("categoryId", this.bookService.getDetail(id).getCategoryId());
+			model.addAttribute("categoryList", categoryService.getAllCategory());
+			return "updateBook";
+		} else {
+			model.addAttribute("form", new Book());
+			model.addAttribute("bookList", this.bookService.getAllBook());
+			model.addAttribute("categoryList", categoryService.getAllCategory());
+			return "index";
+		}
+
 	}
 
 	@PostMapping("/updateBookConfirm")
@@ -147,9 +154,9 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/newRegister")
 	public String newRegister(Model model, @RequestParam("userId") int userId) {
-	//	return "register";
-        model.addAttribute("user", new User());
-        model.addAttribute("userId", userId);
+		// return "register";
+		model.addAttribute("user", new User());
+		model.addAttribute("userId", userId);
 		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", new Book());
@@ -221,7 +228,8 @@ public class LibraryManagementSystemController {
 	}
 
 	@PostMapping("/addNewCategory")
-	public String addNewCategory(Model model, @ModelAttribute("form") Category category, @RequestParam("userId") int userId)  {
+	public String addNewCategory(Model model, @ModelAttribute("form") Category category,
+			@RequestParam("userId") int userId) {
 		this.categoryService.addNewCategory(category);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
@@ -265,31 +273,9 @@ public class LibraryManagementSystemController {
 //	    return response;
 //	}
 //
-//	@PostMapping("/checkUser")
-//	@ResponseBody
-//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
-//		Map<String, Object> response = new HashMap<>();
-//
-//		User loginUser = userService.checkUser(user.getName(), user.getPassword());
-//
-//		if (loginUser != null) {
-//			int id = loginUser.getId();
-//			String name = loginUser.getName();
-//
-//			response.put("uId", id);
-//			response.put("uName", name);
-//		} else {
-//			// Handle the case where loginUser is null (user not found)
-//			response.put("uId", 0);
-//			response.put("uName", "Invalid Name and Password");
-//		}
-//
-//		return response;
-//	}
-
 	@PostMapping("/checkUser")
 	@ResponseBody
-	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user, HttpSession session) {
+	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
 		Map<String, Object> response = new HashMap<>();
 
 		User loginUser = userService.checkUser(user.getName(), user.getPassword());
@@ -297,9 +283,6 @@ public class LibraryManagementSystemController {
 		if (loginUser != null) {
 			int id = loginUser.getId();
 			String name = loginUser.getName();
-
-			// Store user ID in the session
-			session.setAttribute("userId", id);
 
 			response.put("uId", id);
 			response.put("uName", name);
@@ -311,5 +294,30 @@ public class LibraryManagementSystemController {
 
 		return response;
 	}
+
+//	@PostMapping("/checkUser")
+//	@ResponseBody
+//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user, HttpSession session) {
+//		Map<String, Object> response = new HashMap<>();
+//
+//		User loginUser = userService.checkUser(user.getName(), user.getPassword());
+//
+//		if (loginUser != null) {
+//			int id = loginUser.getId();
+//			String name = loginUser.getName();
+//
+//			// Store user ID in the session
+//			session.setAttribute("userId", id);
+//
+//			response.put("uId", id);
+//			response.put("uName", name);
+//		} else {
+//			// Handle the case where loginUser is null (user not found)
+//			response.put("uId", 0);
+//			response.put("uName", "Invalid Name and Password");
+//		}
+//
+//		return response;
+//	}
 
 }

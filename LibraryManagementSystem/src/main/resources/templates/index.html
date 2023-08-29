@@ -222,7 +222,7 @@
 							th:class="${userId} == 0 ? 'red-font-color' : (*{userId} == 0 ? '' : 'red-font-color')"
 							style="background-color: #9BF899A1; text-align: center; width: 100%; height: 56px;"></a>
 						<div style="background-color:#79BD15;text-align: center;height: 26%;">
-							<a th:href="@{/updateBook/{id}/{userId}(id=${book.id},userId=${userId})}">Update</a>
+							<a th:href="${userId} == null  ? @{/} : (${userId} == 0  ? @{/} : @{/updateBook/{id}/{userId}(id=${book.id},userId=${userId})})">Update</a>
 						</div>
 					</div>
 				</th:block>
