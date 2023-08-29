@@ -40,12 +40,14 @@
 </style>
 
 <body style="margin-top: 10%;">
-	<form th:each="detail,index:${user}" th:action="@{/addUserData}" method="post" th:object="${user}">
+	<form th:each="detail,index:${user}" th:action="@{/addUserData(userId=${userId})}" method="post"
+		th:object="${user}">
 		<div class="form">
 			<h2 style="color: darkgreen;">Register</h2>
-			<div style="margin-left: 193px;"> 
-				<input type="checkbox" id="admin" name="admin" />
-				<label for="scales">Admin</label></div>
+			<div style="margin-left: 193px;">
+				<input type="checkbox" id="admin" name="admin" checked />
+				<label for="scales">Admin</label>
+			</div>
 			<div><input class="inputBoxStyle" th:value="${detail.name}" name="name"
 					placeholder="Enter username"></input></div>
 			<div><input class="inputBoxStyle" th:value="${detail.email}" name="email" placeholder="Enter email"></input>
@@ -58,8 +60,11 @@
 			<!--<div><button onclick="@{/addUserData}"type="button" class="button mt-4 col-6">Register</button></div>-->
 			<div><input type="submit" value="Register" class="button mt-4 col-6" style="text-decoration: none;"></input>
 			</div>
-			<div class="button mt-4 col-6" style="margin-left: 55px;width: 258px;"><a th:href="@{/}"
+			<div class="button mt-4 col-6" style="margin-left: 55px;width: 258px;"><a th:href="@{/main(userId=${userId})}"
 					style="text-decoration: none;color: black;">Go Home</a></div>
+			<div th:each="userId,index:${userId}">
+				<input type="hidden" name="userId" th:value="${userId}">
+			</div>
 		</div>
 	</form>
 </body>

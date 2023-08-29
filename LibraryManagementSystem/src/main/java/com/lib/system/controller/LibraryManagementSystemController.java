@@ -41,6 +41,17 @@ public class LibraryManagementSystemController {
 		// System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
+	
+	@GetMapping("/main")
+	public String index(Model model, @RequestParam("userId") int userId) {
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("user", new User());
+		model.addAttribute("form", new Book());
+		model.addAttribute("userId", userId);
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		// System.out.print(this.bookService.getAllBook());
+		return "index";
+	}
 
 	@GetMapping("validUser/{id}")
 	public String validUser(Model model, @PathVariable int id) {
@@ -55,6 +66,8 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/newBook")
 	public String add(Model model, @RequestParam("userId") int userId) {
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
+		model.addAttribute("userId", userId);
 		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", new Book());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
@@ -70,9 +83,10 @@ public class LibraryManagementSystemController {
 	}
 
 	@PostMapping("/addBookData")
-	public String addConfirm(Model model, @ModelAttribute("form") Book book) {
+	public String addConfirm(Model model, @ModelAttribute("form") Book book, @RequestParam("userId") int userId) {
 		book.setUserId(0);
 		this.bookService.addData(book);
+		model.addAttribute("userId", userId);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
@@ -85,17 +99,19 @@ public class LibraryManagementSystemController {
 		return "addBook";
 	}
 
-	@GetMapping("/updateBook/{id}") // read data for update
-	public String update(Model model, @PathVariable int id) {
+	@GetMapping("/updateBook/{id}/{userId}") // read data for update
+	public String update(Model model, @PathVariable int id, @PathVariable int useId) {
 		model.addAttribute("form", this.bookService.getDetail(id));
 		model.addAttribute("categoryId", this.bookService.getDetail(id).getCategoryId());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("userId", useId);
 		return "updateBook";
 	}
 
 	@PostMapping("/updateBookConfirm")
-	public String updateConfirm(Model model, @ModelAttribute("form") Book book) {
+	public String updateConfirm(Model model, @ModelAttribute("form") Book book, @RequestParam("userId") int userId) {
 		bookService.updateBookData(book);
+		model.addAttribute("userId", userId);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
@@ -130,15 +146,28 @@ public class LibraryManagementSystemController {
 	}
 
 	@GetMapping("/newRegister")
-	public String newRegister(Model model) {
-		model.addAttribute("user", new User());
-		return "register";
+	public String newRegister(Model model, @RequestParam("userId") int userId) {
+	//	return "register";
+        model.addAttribute("user", new User());
+        model.addAttribute("userId", userId);
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
+		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
+			model.addAttribute("form", new Book());
+			model.addAttribute("categoryList", categoryService.getAllCategory());
+			return "register";
+		} else {
+			model.addAttribute("form", new Book());
+			model.addAttribute("bookList", this.bookService.getAllBook());
+			model.addAttribute("categoryList", categoryService.getAllCategory());
+			return "index";
+		}
 	}
 
 	@PostMapping("/addUserData")
-	public String addUserData(Model model, @ModelAttribute("form") User user) {
+	public String addUserData(Model model, @ModelAttribute("form") User user, @RequestParam("userId") int userId) {
 		this.userService.addUserData(user);
 		model.addAttribute("form", new Book());
+		model.addAttribute("userId", userId);
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
@@ -176,17 +205,27 @@ public class LibraryManagementSystemController {
 	}
 
 	@GetMapping("/newCategory")
-	public String addCategory(Model model) {
-		model.addAttribute("form", new Category());
-		model.addAttribute("id", categoryService.getNewCatId());
-		return "addCategory";
+	public String addCategory(Model model, @RequestParam("userId") int userId) {
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
+		model.addAttribute("userId", userId);
+		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
+			model.addAttribute("form", new Category());
+			model.addAttribute("id", categoryService.getNewCatId());
+			return "addCategory";
+		} else {
+			model.addAttribute("form", new Book());
+			model.addAttribute("bookList", this.bookService.getAllBook());
+			model.addAttribute("categoryList", categoryService.getAllCategory());
+			return "index";
+		}
 	}
 
 	@PostMapping("/addNewCategory")
-	public String addNewCategory(Model model, @ModelAttribute("form") Category category) {
+	public String addNewCategory(Model model, @ModelAttribute("form") Category category, @RequestParam("userId") int userId)  {
 		this.categoryService.addNewCategory(category);
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "index";
 	}

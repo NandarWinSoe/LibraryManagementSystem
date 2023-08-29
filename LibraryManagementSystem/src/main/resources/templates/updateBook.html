@@ -99,7 +99,8 @@
 </style>
 
 <body style="margin-top: 50px; background-color: #92D050;">
-	<form th:each="detail,index:${form}" th:action="@{/updateBookConfirm}" method="post" th:object="${book}" id="addBookForm">
+	<form th:each="detail,index:${form}" th:action="@{/updateBookConfirm(userId=${userId})}" method="post"
+		th:object="${book}" id="addBookForm">
 		<div class="body" style="background-color:#92D050">
 			<h2>UPDATE BOOK</h2>
 		</div>
@@ -114,7 +115,7 @@
 				<div class="labelStyle">Author</div>
 				<div class="labelStyle">Produce Year</div>
 				<div class="labelStyle">Book Type</div>
-				<a th:href="@{/}" class="button mt-4 col-6"
+				<a th:href="@{/main(userId=${userId})}" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;">Cancel</a>
 			</div>
 			<div class="column3" style="background-color:#92D050">
@@ -135,7 +136,9 @@
 				<input type="submit" value="Update" class="button mt-4 col-6"
 					style="border-radius: 11px; text-decoration: none;padding-top: 3px;"></input>
 			</div>
-
+			<div th:each="userId,index:${userId}">
+				<input type="hidden" name="userId" th:value="${userId}">
+			</div>
 		</div>
 	</form>
 </body>
