@@ -28,7 +28,7 @@
 		SET name = #{name} , category_id =
 		#{categoryId},
 		author = #{author} , produce_year= #{produceYear} ,
-		book_type = #{bookType}, file = #{file}, size = #{size} 
+		book_type = #{bookType}, file = #{file}, size = #{size}
 		WHERE id =
 		#{id}
 	</update>
@@ -40,9 +40,10 @@
 		WHERE id = #{id}
 	</update>
 
-	<update id="returnBook" parameterType="com.lib.system.entity.Book">
+	<update id="returnBook"
+		parameterType="com.lib.system.entity.Book">
 		UPDATE book
-		SET user_id = 0 
+		SET user_id = 0
 		WHERE id = #{id}
 	</update>
 
@@ -58,7 +59,7 @@
 		name
 	</select>
 
-	<select id="findByAuthor" parameterType="string"
+<!-- 	<select id="findByAuthor" parameterType="string"
 		resultMap="result">
 		SELECT * FROM book
 		where author = #{author} order by name
@@ -74,8 +75,27 @@
 		SELECT *
 		FROM book
 		where id = #{id} order by name
-	</select>
+	</select> -->
 
+	<select id="findByData"
+		parameterType="com.lib.system.entity.Book" resultMap="result">
+		SELECT *
+		FROM book
+		<where>
+			<if test="categoryId != '' ">
+				AND category_id = #{categoryId}
+			</if>
+			<if test="author != '' ">
+				AND author = #{author}
+			</if>
+			<if test="name != '' ">
+				AND name = #{name}
+			</if>
+			<if test="id != '' ">
+				AND id = #{id}
+			</if>
+		</where>
+	</select>
 
 	<select id="checkLendOrNot" parameterType="int"
 		resultMap="result">
@@ -104,7 +124,7 @@
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="phoneNo" column="phone_no" />
-		<result property="admin" column="admin"/>
+		<result property="admin" column="admin" />
 	</resultMap>
 
 	<select id="checkUser"
@@ -115,13 +135,13 @@
 		where name = #{name} and
 		password = #{password}
 	</select>
-	
-	<select id="checkAdmin"
-		parameterType="int" resultMap="resultUser">
-		SELECT 
-		admin 
+
+	<select id="checkAdmin" parameterType="int"
+		resultMap="resultUser">
+		SELECT
+		admin
 		FROM user01
-		where id = #{id} 
+		where id = #{id}
 	</select>
 
 	<!-- Add User -->
@@ -137,12 +157,12 @@
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 	</resultMap>
-	
+
 	<insert id="addCategory"
 		parameterType="com.lib.system.entity.Category">
 		INSERT INTO category (id,name)
 		VALUES
-		(#{id},#{name} )  
+		(#{id},#{name} )
 	</insert>
 
 	<!-- Add User -->
