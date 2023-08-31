@@ -66,8 +66,8 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", id);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		// System.out.print(this.bookService.getAllBook());
-		return "index";
+		System.out.println("This IS IIIIIDDDDD"+id);
+		return "redirect:/main?userId=" + id; 
 	}
 
 	@GetMapping("/newBook")
@@ -181,7 +181,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("userId", 0);
-		return "index";
+		return "redirect:/";
 	}
 
 	@GetMapping("/newRegister")

@@ -65,6 +65,15 @@
 						//	console.log(response.charges);
 						UID = response.uId;
 						UName = response.uName;
+						console.log('This is ssssssssss UID:', UID);
+						if (UID == 0 || UID == null) {
+							$('#okButton').hide();
+							$('#showChargesCenterTitle').text("Try Again!"); // Change the modal title
+						} else {
+							$('#okButton').show();
+							$('#showChargesCenterTitle').text("Login Successful!"); // Change the modal title
+						}
+
 						if (UID == 0) {
 							$('#checkUser span').text(UName);
 							$('#checkUser').modal('show');
@@ -81,13 +90,34 @@
 				});
 			});
 
+			/*	$('#okButton').click(function () {
+	
+					// Construct the URL with the id parameter
+					var url = 'validUser/' + UID;
+	
+					// Redirect to the URL
+					window.location.href = url;
+				}); */
+
 			$('#okButton').click(function () {
+				// Check if UID is a valid integer
+				if (!isNaN(parseInt(UID))) {
+					// Construct the URL with the id parameter
+					var url = 'validUser/' + parseInt(UID);
+					console.log('This is ssssssssss UID:', UID);
 
-				// Construct the URL with the id parameter
-				var url = 'validUser/' + UID;
+					// Redirect to the URL
+					window.location.href = url;
+				}
+			});
 
-				// Redirect to the URL
-				window.location.href = url;
+
+			$('#checkUser').on('show.bs.modal', function (event) {
+				if (UID == 0 || UID == null) {
+					$('#okButton').hide();
+				} else {
+					$('#okButton').show();
+				}
 			});
 		});
 	</script>
@@ -121,8 +151,7 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="showChargesCenterTitle" style="margin-left: 180px;">Login
-							Successful!</h5>
+						<h5 class="modal-title" id="showChargesCenterTitle" style="margin-left: 180px;"> </h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
 					</div>
 					<div class="modal-body"><span th:text="${charges}"></span></div>
