@@ -6,10 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "book")
 public class Book {
 
@@ -29,10 +36,19 @@ public class Book {
 	Integer produceYear;
 	@Column(name = "bookType")
 	Integer bookType;
-	@Column(name = "userId")
-	Integer userId;
+	@Column(name = "lendUser")
+	Integer lendUser;
 	@Column(name = "file")
 	String file;
 	@Column(name = "size")
-	Long  size;
+	byte[] size;
+
+	@Transient
+	public String getLogoImagePath() {
+		if (name == null || id == null)
+			return null;
+
+		return "/brand-logos/" + id + "/" + name;
+
+	}
 }

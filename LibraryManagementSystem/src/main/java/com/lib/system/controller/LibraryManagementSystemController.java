@@ -1,14 +1,13 @@
 package com.lib.system.controller;
- 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption; 
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
- 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lib.system.entity.Book;
 import com.lib.system.entity.Category;
@@ -29,7 +27,6 @@ import com.lib.system.entity.User;
 import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
-
 
 @Controller
 public class LibraryManagementSystemController {
@@ -90,53 +87,41 @@ public class LibraryManagementSystemController {
 		}
 
 	}
+
 	@PostMapping("/addBookData")
-	public String addConfirm(Model model,@RequestParam("file") MultipartFile file, RedirectAttributes ra, @ModelAttribute("form") Book book, @RequestParam("userId") int userId) throws IOException {
-//		book.setUserId(0);
-//		this.bookService.addData(book);
-//		model.addAttribute("userId", userId);
-//		model.addAttribute("form", new Book());
-//		model.addAttribute("bookList", this.bookService.getAllBook());
-//		model.addAttribute("categoryList", categoryService.getAllCategory());
-	//	return "index";
+	public String addConfirm(Model model, @RequestParam("fileName") MultipartFile file,
+			@ModelAttribute("form") Book book, @RequestParam("userId") int userId) throws IOException {
+		book.setLendUser(0);
 		
-				// Handle the uploaded file (e.g., save it to a temporary location)
-				// You can save it to a file system, database, or process it as needed.
+		if (book.getBookType().equals("1")) {
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-				// Generate a PDF as an example
-				book.setUserId(0);
-				
-				model.addAttribute("userId", userId);
-				model.addAttribute("form", new Book());
-				model.addAttribute("bookList", this.bookService.getAllBook());
-				model.addAttribute("categoryList", categoryService.getAllCategory());
-				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			book.setFile(fileName);
+			book.setSize(file.getBytes());
 
-				book.setFile(fileName);
-				book.setSize(file.getSize());
-				this.bookService.addData(book);
-				//Document doc = documentRepository.save(book);
-				String uploadDir = "./brand-logos/" + book.getId();
-				Path uploadPath = Paths.get(uploadDir);
-				
-				if(!Files.exists(uploadPath)) {
-					Files.createDirectories(uploadPath);
-				}
-				
-				try (InputStream inputStream = file.getInputStream()){
-					Path filePath = uploadPath.resolve(fileName);
-					System.out.println(filePath.toFile().getAbsolutePath());
-					Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-				}catch(IOException e) {
-					throw new IOException("Could not save uploaded File: "+fileName);
-				}
-				
-				this.bookService.addData(book);
-				ra.addFlashAttribute("message", "The file has been uploaded successfully");
-				//return "redirect:/";
+			// Document doc = documentRepository.save(book);
+			String uploadDir = "./brand-logos/" + book.getId();
+			Path uploadPath = Paths.get(uploadDir);
 
-				return "index"; // Return to the upload form page
-		
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+
+			try (InputStream inputStream = file.getInputStream()) {
+				Path filePath = uploadPath.resolve(fileName);
+				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new IOException("Could not save uploaded File: " + fileName);
+			}
+		}
+		this.bookService.addData(book);
+		model.addAttribute("userId", userId);
+		model.addAttribute("form", new Book());
+		model.addAttribute("bookList", this.bookService.getAllBook());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("userId", userId);
+		return "index"; // Return to the upload form page
+
 	}
 
 	@GetMapping("/getAllBook")
@@ -174,10 +159,10 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/bookLend/{id}/{bookId}")
 	public String bookLend(Model model, @PathVariable int id, @PathVariable int bookId) {
-		if (bookService.checkLendOrNot(bookId).getUserId() == 0) { // can lend
+		if (bookService.checkLendOrNot(bookId).getLendUser() == 0) { // can lend
 			bookService.lendBook(id, bookId);
 		} else {
-			if (bookService.checkLendOrNot(bookId).getUserId() == id) { // return
+			if (bookService.checkLendOrNot(bookId).getLendUser() == id) { // return
 				bookService.returnBook(bookId);
 			} else { // other person lend
 				// nothing
@@ -204,11 +189,11 @@ public class LibraryManagementSystemController {
 		// return "register";
 		model.addAttribute("user", new User());
 		model.addAttribute("userId", userId);
-	//	model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
+		// model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 //		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
-			model.addAttribute("form", new Book());
-			model.addAttribute("categoryList", categoryService.getAllCategory());
-			return "register";
+		model.addAttribute("form", new Book());
+		model.addAttribute("categoryList", categoryService.getAllCategory());
+		return "register";
 //		} else {
 //			model.addAttribute("form", new Book());
 //			model.addAttribute("bookList", this.bookService.getAllBook());
