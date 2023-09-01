@@ -129,7 +129,8 @@
 
 			</div>
 			<div class="column3" style="background-color:#92D050">
-				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id" readonly></input>
+				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"
+					readonly></input>
 				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
 				<!--<select class="inputBoxStyle" th:each="category,index:${categoryList}" th:value="${detail.categoryId}"
 					name="categoryId">
@@ -152,7 +153,7 @@
 					style="display: none;"></input>-->
 				<div id="pdfInput">
 					<!--	<label for="pdfInput1">Upload File......</label>-->
-					<input id="fileUpload" type="file" name="fileName" accept="application/pdf" 
+					<input id="fileUpload" type="file" name="fileName" accept="application/pdf"
 						style="padding: 15px; font-size: 16px;margin-left: -13px;" />
 				</div>
 				<!--<form action="/upload" method="post" enctype="multipart/form-data">
@@ -176,7 +177,13 @@
 		// Get references to the select element and the PDF input box
 		var bookTypeSelect = document.getElementById('bookTypeSelect');
 		var pdfInput = document.getElementById('pdfInput');
-		var bookTypeFile = document.getElementById('bookTypeFile');
+		if (bookTypeSelect.value === '1') {
+			// If '2' is selected (Book), show the PDF input box
+			pdfInput.style.display = 'block';
+		} else {
+			// Otherwise, hide the PDF input box
+			pdfInput.style.display = 'none';
+		}
 
 		// Add an event listener to the select element
 		bookTypeSelect.addEventListener('change', function () {
@@ -184,10 +191,8 @@
 			if (bookTypeSelect.value === '1') {
 				// If '2' is selected (Book), show the PDF input box
 				pdfInput.style.display = 'block';
-				bookTypeFile.style.display = 'block';
 			} else {
 				// Otherwise, hide the PDF input box
-				pdfInput.style.display = 'none';
 				pdfInput.style.display = 'none';
 			}
 		});

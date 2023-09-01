@@ -170,7 +170,29 @@ public class LibraryManagementSystemController {
 	}
 
 	@PostMapping("/updateBookConfirm")
-	public String updateConfirm(Model model, @ModelAttribute("form") Book book, @RequestParam("userId") int userId) {
+	public String updateConfirm(Model model, @RequestParam("fileName") MultipartFile file,
+			@ModelAttribute("form") Book book, @RequestParam("userId") int userId) throws IOException {
+		if (book.getBookType() == 1) {
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+			book.setFile(fileName);
+			book.setSize(file.getBytes());
+
+			// Document doc = documentRepository.save(book);
+			String uploadDir = "./pdf-files/" + book.getId();
+			Path uploadPath = Paths.get(uploadDir);
+
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+
+			try (InputStream inputStream = file.getInputStream()) {
+				Path filePath = uploadPath.resolve(fileName);
+				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new IOException("Could not save uploaded File: " + fileName);
+			}
+		}
 		bookService.updateBookData(book);
 		model.addAttribute("userId", userId);
 		model.addAttribute("form", new Book());
