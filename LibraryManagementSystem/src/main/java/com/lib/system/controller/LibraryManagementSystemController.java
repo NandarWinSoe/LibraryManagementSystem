@@ -28,6 +28,9 @@ import com.lib.system.service.BookService;
 import com.lib.system.service.CategoryService;
 import com.lib.system.service.UserService;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class LibraryManagementSystemController {
 	@Autowired
@@ -66,16 +69,18 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", id);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		System.out.println("This IS IIIIIDDDDD"+id);
-		return "redirect:/main?userId=" + id; 
+		return "redirect:/main?userId=" + id;
 	}
 
 	@GetMapping("/newBook")
 	public String add(Model model, @RequestParam("userId") int userId) {
+		
+		Book book = new Book();
+		book.setId(bookService.getNewBookId());
 		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		model.addAttribute("userId", userId);
 		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
-			model.addAttribute("form", new Book());
+			model.addAttribute("form", book);
 			model.addAttribute("categoryList", categoryService.getAllCategory());
 			return "addBook";
 		} else {
@@ -92,15 +97,15 @@ public class LibraryManagementSystemController {
 	public String addConfirm(Model model, @RequestParam("fileName") MultipartFile file,
 			@ModelAttribute("form") Book book, @RequestParam("userId") int userId) throws IOException {
 		book.setLendUser(0);
-		
-		if (book.getBookType().equals("1")) {
+
+		if (book.getBookType() == 1) {
 			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
 			book.setFile(fileName);
 			book.setSize(file.getBytes());
 
 			// Document doc = documentRepository.save(book);
-			String uploadDir = "./brand-logos/" + book.getId();
+			String uploadDir = "./pdf-files/" + book.getId();
 			Path uploadPath = Paths.get(uploadDir);
 
 			if (!Files.exists(uploadPath)) {
@@ -124,6 +129,23 @@ public class LibraryManagementSystemController {
 
 	}
 
+	@GetMapping("/download/{id}")
+	public void downloadFile(@PathVariable int id, HttpServletResponse response) throws Exception {
+		Book b = bookService.findById(id);
+		if (b.equals(null)) {
+			throw new Exception("Could not find document with ID: " + id);
+		}
+		response.setContentType("application/octet-stream");
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename = " + b.getPdfFilePath();
+
+		response.setHeader(headerKey, headerValue);
+
+		ServletOutputStream outputStream = response.getOutputStream();
+		outputStream.write(b.getSize());
+		outputStream.close();
+	}
+
 	@GetMapping("/getAllBook")
 	public String getAllBook(Model model) {
 		model.addAttribute("form", new Book());
@@ -142,7 +164,7 @@ public class LibraryManagementSystemController {
 			model.addAttribute("form", new Book());
 			model.addAttribute("bookList", this.bookService.getAllBook());
 			model.addAttribute("categoryList", categoryService.getAllCategory());
-			return "index";
+			return "redirect:/main?userId=" + userId;
 		}
 
 	}
@@ -172,7 +194,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("userId", id);
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		return "index";
+		return "redirect:/main?userId=" + id;
 	}
 
 	@GetMapping("/bookLend")
@@ -277,35 +299,6 @@ public class LibraryManagementSystemController {
 		return "login";
 	}
 
-	/*
-	 * @PostMapping("/checkUser") public String checkUser(Model
-	 * model, @ModelAttribute("form") User user) { User loginUser =
-	 * bookService.checkUser(user.getName(),user.getPassword());
-	 * model.addAttribute("form", new Book()); model.addAttribute("bookList",
-	 * this.bookService.getAllBook()); model.addAttribute("categoryList",
-	 * categoryService.getAllCategory());
-	 * model.addAttribute("uId",loginUser.getId()); model.addAttribute("uName",
-	 * loginUser.getName()); return "index"; }
-	 */
-
-//	@PostMapping("/checkUser")
-//	@ResponseBody // Add this annotation to indicate that the return value should be serialized to JSON
-//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
-//	    Map<String, Object> response = new HashMap<>();
-//	    User loginUser = bookService.checkUser(user.getName(), user.getPassword());
-//	    int id = 0;
-//	    String name ="";
-//	    if ( !loginUser.getId().equals(null)) {
-//	    	id = loginUser.getId();
-//	    	name = loginUser.getName();
-//	    }
-//	    // You can add user information to the response map
-//	    response.put("uId", id);
-//	    response.put("uName",name);
-//
-//	    return response;
-//	}
-//
 	@PostMapping("/checkUser")
 	@ResponseBody
 	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user) {
@@ -327,30 +320,4 @@ public class LibraryManagementSystemController {
 
 		return response;
 	}
-
-//	@PostMapping("/checkUser")
-//	@ResponseBody
-//	public Map<String, Object> checkUser(Model model, @ModelAttribute("form") User user, HttpSession session) {
-//		Map<String, Object> response = new HashMap<>();
-//
-//		User loginUser = userService.checkUser(user.getName(), user.getPassword());
-//
-//		if (loginUser != null) {
-//			int id = loginUser.getId();
-//			String name = loginUser.getName();
-//
-//			// Store user ID in the session
-//			session.setAttribute("userId", id);
-//
-//			response.put("uId", id);
-//			response.put("uName", name);
-//		} else {
-//			// Handle the case where loginUser is null (user not found)
-//			response.put("uId", 0);
-//			response.put("uName", "Invalid Name and Password");
-//		}
-//
-//		return response;
-//	}
-
 }

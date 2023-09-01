@@ -17,9 +17,9 @@
 	<!-- Add Book -->
 	<insert id="save" parameterType="com.lib.system.entity.Book">
 		INSERT INTO book
-		(id,name,category_id,author,produce_year,book_type,lendUser,file,size)
+		(id,name,category_id,author,produce_year,book_type,lend_user,file,size)
 		VALUES
-		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType},#{lend_user},#{file},#{size})
+		(#{id},#{name},#{categoryId},#{author},#{produceYear},#{bookType},#{lendUser},#{file},#{size})
 	</insert>
 
 	<update id="updateBookData"
@@ -34,9 +34,8 @@
 	</update>
 
 	<update id="lendBook" parameterType="com.lib.system.entity.Book">
-		UPDATE book
-		SET lendUser =
-		#{lend_user}
+		UPDATE book 
+		SET lend_user = #{lendUser}
 		WHERE id = #{id}
 	</update>
 
@@ -51,6 +50,12 @@
 		SELECT * FROM book order by
 		name
 	</select>
+	
+	
+	<select id="findById" parameterType="int" resultMap="result">
+		SELECT * FROM book 
+		where id = #{id}  
+	</select>
 
 	<select id="findByCategory" parameterType="int"
 		resultMap="result">
@@ -58,12 +63,12 @@
 		where category_id = #{categoryId} order by
 		name
 	</select>
-
-	<!-- <select id="findByAuthor" parameterType="string" resultMap="result"> 
-		SELECT * FROM book where author = #{author} order by name </select> <select 
-		id="findByName" parameterType="string" resultMap="result"> SELECT * FROM 
-		book where name = #{name} order by name </select> <select id="findById" parameterType="int" 
-		resultMap="result"> SELECT * FROM book where id = #{id} order by name </select> -->
+	
+	<select id="getNewBookId" resultMap="result">
+		SELECT * FROM book ORDER
+		BY id DESC
+		LIMIT 1
+	</select>
 
 	<select id="findByData"
 		parameterType="com.lib.system.entity.Book" resultMap="result">

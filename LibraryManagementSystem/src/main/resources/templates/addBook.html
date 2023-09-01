@@ -129,7 +129,7 @@
 
 			</div>
 			<div class="column3" style="background-color:#92D050">
-				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id"></input>
+				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id" readonly></input>
 				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
 				<!--<select class="inputBoxStyle" th:each="category,index:${categoryList}" th:value="${detail.categoryId}"
 					name="categoryId">

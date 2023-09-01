@@ -16,6 +16,10 @@ public interface LibraryManagementSystem {
 	
 	User checkAdmin(int id);
 	
+	Book findById(int id);
+	
+	Book getNewBookId();
+	
 	List<Book> getAllBook();
 	
 	void updateBookData(Book book);
@@ -43,7 +47,7 @@ public interface LibraryManagementSystem {
 	
 	User checkUser(String name,String password);
 	
-	void lendBook(int userId, int id);
+	void lendBook(int lendUser, int id);
 	
 	void returnBook( int id);
 	

@@ -217,7 +217,7 @@
 						<div th:each="id,index:${id}">
 							<input type="hidden" name="id" th:value="${id}">
 						</div>
-						<a th:href="${userId} == 0  ? @{/bookLend} :@{/bookLend/{id}/{bookId}(id=${userId},bookId=${book.id})}"
+						<a th:href="${userId} == 0  ? @{/bookLend} : (*{bookType} == 1   ? @{/download/{id}(id=${book.id})} :@{/bookLend/{id}/{bookId}(id=${userId},bookId=${book.id})})"
 							th:text="${userId} == 0 ? 'Login First' : (*{bookType} == 1 ? 'Download' : (*{lendUser} == 0 ? 'Available' : 'Already Lend'))"
 							th:class="${userId} == 0 ? 'red-font-color' : (*{lendUser} == 0 ? '' : 'red-font-color')"
 							style="background-color: #9BF899A1; text-align: center; width: 100%; height: 56px;"></a>

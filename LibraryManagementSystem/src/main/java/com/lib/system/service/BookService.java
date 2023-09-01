@@ -47,6 +47,17 @@ public class BookService {
 		Book book = this.libraryRepository.findByIdForUpdate(id);
 		return book;
 	}
+	
+	public int getNewBookId() {
+		int id = 0;
+		if (this.libraryRepository.getNewBookId() == null ) {
+			id = 1;
+		} else {
+			id = this.libraryRepository.getNewBookId().getId();
+			id ++;
+		}
+		return id ;
+	}
 
 	public Book checkLendOrNot(int id) {
 		return this.libraryRepository.checkLendOrNot(id);
@@ -61,12 +72,17 @@ public class BookService {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 		}
 	}
+	
+	public Book findById(int id) {
+		return this.libraryRepository.findById(id);
+	}
 
 	public void lendBook(int id, int bookId) {
 		try {
 			this.libraryRepository.lendBook(id, bookId);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
+			System.out.println("EEEEEEE"+e);
 		}
 	}
 
