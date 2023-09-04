@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Library Management</title>
 </head>
 <style>
 	* {
@@ -112,13 +112,13 @@
 
 <body style="margin-top: 50px; background-color: #92D050;">
 	<form th:each="detail,index:${form}" th:action="@{/updateBookConfirm(userId=${userId})}" method="post"
-		th:object="${book}" id="addBookForm">
+		th:object="${book}" id="addBookForm" enctype="multipart/form-data">
 		<div class="body" style="background-color:#92D050">
 			<h2>UPDATE BOOK</h2>
 		</div>
 		<div class="body">
 			<div class="column1" style="background-color:#92D050">
-				<img style="width: 219px; height: 347px" th:src="Library.png" />
+				<!--<img style="width: 219px; height: 347px" th:src="Library.png" />-->
 			</div>
 			<div class="column2" style="background-color:#92D050">
 				<div class="labelStyle">Resgistration ID</div>
