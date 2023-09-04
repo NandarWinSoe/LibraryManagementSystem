@@ -19,23 +19,13 @@ public class BookService {
 
 	// add book
 	public void addData(Book data) {
-		try {
-			// System.out.print("categoryIDDDDD"+data.getCategoryId());
-			// data.setCategory(libraryRepository.findCategoryById(data.getCategoryId()));
+		try { 
 			this.libraryRepository.save(data);
 		} catch (Exception e) {
-			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print("this is ERRPR=======" +e);
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly(); 
 		}
 	}
-
-	/*
-	 * public List<Book> getAllBook(Book data) { try {
-	 * this.libraryRepository.getAllBook(data); } catch (Exception e) {
-	 * TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-	 * System.out.print("errrrrorrr"); } }
-	 */
-
+ 
 	// get all book
 	public List<Book> getAllBook() {
 		List<Book> pList = this.libraryRepository.getAllBook();
@@ -81,8 +71,7 @@ public class BookService {
 		try {
 			this.libraryRepository.lendBook(id, bookId);
 		} catch (Exception e) {
-			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.println("EEEEEEE"+e);
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly(); 
 		}
 	}
 

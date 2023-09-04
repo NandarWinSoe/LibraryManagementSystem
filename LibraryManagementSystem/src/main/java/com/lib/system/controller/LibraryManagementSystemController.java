@@ -47,7 +47,6 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", 0);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		// System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
 
@@ -58,7 +57,6 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
-		// System.out.print(this.bookService.getAllBook());
 		return "index";
 	}
 
@@ -280,7 +278,6 @@ public class LibraryManagementSystemController {
 	@GetMapping("/findByType")
 	public String findByType(Model model, @RequestParam("id") int type, @RequestParam("userId") int userId) {
 		model.addAttribute("bookList", this.bookService.findByType(type));
-		// System.out.println(this.bookService.findByType(type));
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", userId);

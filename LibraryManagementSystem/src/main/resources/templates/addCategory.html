@@ -23,7 +23,7 @@
 
 	.column1 {
 		float: left;
-		width: 30%;
+		width: 37%;
 		padding: 10px;
 		height: 430px;
 		/* Should be removed. Only for demonstration */
@@ -34,7 +34,7 @@
 		width: 30%;
 		padding: 10px;
 		height: 430px;
-		padding-top: 30px;
+		padding-top: 68px;
 		/* Should be removed. Only for demonstration */
 	}
 
@@ -43,7 +43,7 @@
 		width: 40%;
 		padding: 10px;
 		height: 430px;
-		padding-top: 30px;
+		padding-top: 68px;
 		/* Should be removed. Only for demonstration */
 	}
 
@@ -78,7 +78,7 @@
 		color: rgb(233, 236, 240);
 		width: 80%;
 		border-radius: 4px;
-		margin-top: 11px;
+		margin-top: 12px;
 		margin-bottom: 20px;
 		height: 10%;
 		padding-left: 9px;
@@ -107,19 +107,19 @@
 		</div>
 		<div class="body">
 			<div class="column1" style="background-color:#92D050">
-				<img style="width: 219px; height: 347px" th:src="Library.png" />
+				<img style="width: 221px; height: 347px" th:src="Library.png" />
 			</div>
 			<div class="column2" style="background-color:#92D050">
 				<div class="labelStyle">Category ID</div>
 				<div class="labelStyle">Category Name</div>
 				<div  style="margin-left: 50px;"><a th:href="@{/main(userId=${userId})}"
-						style="text-decoration: none; padding-top: 10px;height: 42px;width: 168px;font-size: 16px;" class="button">Go Home</a></div>
+						style="text-decoration: none;padding-top: 10px;height: 42px;width: 138px;font-size: 16px;border-radius: 9px;margin-left: -7px;" class="button">Go Home</a></div>
 			</div>
 			<div class="column3" style="background-color:#92D050">
 				<input class="inputBoxStyle" th:value="${detail.id} == 0 ? '' : ${detail.id}" name="id" readonly></input>
 				<input class="inputBoxStyle" th:value="${detail.name}" name="name"></input>
 				<input type="submit" value="Add Book Category" class="button mt-4 col-6"
-					style=" text-decoration: none;padding-top: 3px;margin-top: 21px;width: 202px;height: 41px;"></input>
+					style=" text-decoration: none;padding-top: 3px;margin-top: 19px;width: 168px;height: 42px;border-radius: 9px;"></input>
 			</div>
 			<div th:each="userId,index:${userId}">
 				<input type="hidden" name="userId" th:value="${userId}" >
