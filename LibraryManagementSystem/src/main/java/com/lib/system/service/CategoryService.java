@@ -24,13 +24,13 @@ public class CategoryService {
 
 	public int getNewCatId() {
 		int id = 0;
-		if (this.libraryRepository.getNewCatId() == null ) {
+		if (this.libraryRepository.getNewCatId() == null) {
 			id = 1;
 		} else {
 			id = this.libraryRepository.getNewCatId().getId();
-			id ++;
+			id++;
 		}
-		return id ;
+		return id;
 	}
 
 	// add Category
@@ -39,8 +39,6 @@ public class CategoryService {
 			this.libraryRepository.addCategory(category);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print("errrrrorrr");
-			System.out.print(e);
 		}
 	}
 

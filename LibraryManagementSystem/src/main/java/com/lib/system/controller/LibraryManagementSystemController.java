@@ -57,6 +57,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -66,13 +67,14 @@ public class LibraryManagementSystemController {
 		model.addAttribute("user", new User());
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", id);
+		model.addAttribute("admin", userService.checkAdmin(id).getAdmin());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "redirect:/main?userId=" + id;
 	}
 
 	@GetMapping("/newBook")
 	public String add(Model model, @RequestParam("userId") int userId) {
-		
+
 		Book book = new Book();
 		book.setId(bookService.getNewBookId());
 		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
@@ -102,7 +104,6 @@ public class LibraryManagementSystemController {
 			book.setFile(fileName);
 			book.setSize(file.getBytes());
 
-			// Document doc = documentRepository.save(book);
 			String uploadDir = "./pdf-files/" + book.getId();
 			Path uploadPath = Paths.get(uploadDir);
 
@@ -123,6 +124,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("userId", userId);
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index"; // Return to the upload form page
 
 	}
@@ -153,6 +155,7 @@ public class LibraryManagementSystemController {
 	@GetMapping("/updateBook/{id}/{userId}") // read data for update
 	public String update(Model model, @PathVariable int id, @PathVariable int userId) {
 		model.addAttribute("userId", userId);
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 			model.addAttribute("form", this.bookService.getDetail(id));
 			model.addAttribute("categoryId", this.bookService.getDetail(id).getCategoryId());
@@ -176,7 +179,6 @@ public class LibraryManagementSystemController {
 			book.setFile(fileName);
 			book.setSize(file.getBytes());
 
-			// Document doc = documentRepository.save(book);
 			String uploadDir = "./pdf-files/" + book.getId();
 			Path uploadPath = Paths.get(uploadDir);
 
@@ -196,6 +198,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("form", new Book());
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -228,20 +231,12 @@ public class LibraryManagementSystemController {
 
 	@GetMapping("/newRegister")
 	public String newRegister(Model model, @RequestParam("userId") int userId) {
-		// return "register";
+	
 		model.addAttribute("user", new User());
 		model.addAttribute("userId", userId);
-		// model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
-//		if (userService.checkAdmin(userId).getAdmin().equals("1")) {
 		model.addAttribute("form", new Book());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		return "register";
-//		} else {
-//			model.addAttribute("form", new Book());
-//			model.addAttribute("bookList", this.bookService.getAllBook());
-//			model.addAttribute("categoryList", categoryService.getAllCategory());
-//			return "index";
-//		}
 	}
 
 	@PostMapping("/addUserData")
@@ -251,6 +246,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("userId", userId);
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -263,6 +259,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("userId", userId);
 		model.addAttribute("bookList", this.bookService.findByData(book));
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -272,6 +269,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", userId);
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -281,6 +279,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("categoryList", categoryService.getAllCategory());
 		model.addAttribute("form", new Book());
 		model.addAttribute("userId", userId);
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -309,6 +308,7 @@ public class LibraryManagementSystemController {
 		model.addAttribute("bookList", this.bookService.getAllBook());
 		model.addAttribute("userId", userId);
 		model.addAttribute("categoryList", categoryService.getAllCategory());
+		model.addAttribute("admin", userService.checkAdmin(userId).getAdmin());
 		return "index";
 	}
 
@@ -332,7 +332,6 @@ public class LibraryManagementSystemController {
 			response.put("uId", id);
 			response.put("uName", name);
 		} else {
-			// Handle the case where loginUser is null (user not found)
 			response.put("uId", 0);
 			response.put("uName", "Invalid Name and Password");
 		}

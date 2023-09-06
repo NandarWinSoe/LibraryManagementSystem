@@ -17,5 +17,5 @@ public class Category {
 	@Column(name = "id")
 	Integer id;
 	@Column(name = "name")
-	String name;  
+	String name;
 }

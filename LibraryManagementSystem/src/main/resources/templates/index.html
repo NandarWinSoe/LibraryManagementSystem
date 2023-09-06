@@ -134,22 +134,13 @@
 <body>
 	<div class="myHeader">
 		<div class="column">
-			<!--<div
-				style="width: 48%; height: 100%; background: #548135;color: white; border-radius: 9999px;padding-top: 33px;">
-				Library Management System</div>-->
-			<!--<img style="width: 157px;height: 99px;margin-left: -240px;" th:src="Ellipse.png" />-->
-			<div style="	display: flex;">
-				<img style="width: 230px;height: 99px;margin-left: 43px;" src="Ellipse.png" alt="Image" />
-				<div style="color: white;margin-top: 30px;margin-left: -213px;">
-					Library Management System
-				</div>
-			</div>
+			<img style="width: 157px;height: 99px;margin-left: -240px;" th:src="logo.png" />
 			<div th:each="id,index:${id}">
 				<input type="hidden" name="id" th:value="${id}">
 			</div>
-			<div th:each="admin,index:${admin}">
-				<input type="hidden" name="admin" th:value="${admin}" id="admin">
-			</div>
+
+			<input type="hidden" name="admin" th:value="${admin}" id="admin">
+
 		</div>
 		<div class="column">
 			<div class="button-container">
@@ -157,10 +148,11 @@
 					class="button" style="text-decoration: none;">Books</a>
 				<a th:href="${userId} == 0  ? @{/findByType(id=1,userId=0)} :@{/findByType(id=1,userId=${userId})}"
 					class="button" style="text-decoration: none;">EBooks</a>
-				<a th:href="${userId} == 0  ? @{/} :@{/newBook(userId=${userId})}" class="button"
-					style="text-decoration: none;" id="checkAfddBook">Add Book</a>
-				<a th:href="${userId} == 0  ? @{/} :@{/newCategory(userId=${userId})}" class="button"
-					style="text-decoration: none;" id="checkAddCategory">Add Category</a>
+				<a th:if="${admin} == '1'" th:href="${userId} == 0  ? @{/} :@{/newBook(userId=${userId})}"
+					class="button" style="text-decoration: none;" id="checkAfddBook">Add Book</a>
+				<a th:if="${admin} == '1'" th:href="${userId} == 0  ? @{/} :@{/newCategory(userId=${userId})}"
+					class="button" style="text-decoration: none;" id="checkAddCategory">Add Category</a>
+
 			</div>
 			<lable style="color: red;"></lable>
 		</div>

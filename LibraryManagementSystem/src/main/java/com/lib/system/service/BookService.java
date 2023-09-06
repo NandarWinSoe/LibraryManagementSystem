@@ -19,13 +19,13 @@ public class BookService {
 
 	// add book
 	public void addData(Book data) {
-		try { 
+		try {
 			this.libraryRepository.save(data);
 		} catch (Exception e) {
-			TransactionInterceptor.currentTransactionStatus().setRollbackOnly(); 
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 		}
 	}
- 
+
 	// get all book
 	public List<Book> getAllBook() {
 		List<Book> pList = this.libraryRepository.getAllBook();
@@ -37,16 +37,16 @@ public class BookService {
 		Book book = this.libraryRepository.findByIdForUpdate(id);
 		return book;
 	}
-	
+
 	public int getNewBookId() {
 		int id = 0;
-		if (this.libraryRepository.getNewBookId() == null ) {
+		if (this.libraryRepository.getNewBookId() == null) {
 			id = 1;
 		} else {
 			id = this.libraryRepository.getNewBookId().getId();
-			id ++;
+			id++;
 		}
-		return id ;
+		return id;
 	}
 
 	public Book checkLendOrNot(int id) {
@@ -62,7 +62,7 @@ public class BookService {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 		}
 	}
-	
+
 	public Book findById(int id) {
 		return this.libraryRepository.findById(id);
 	}
@@ -71,7 +71,7 @@ public class BookService {
 		try {
 			this.libraryRepository.lendBook(id, bookId);
 		} catch (Exception e) {
-			TransactionInterceptor.currentTransactionStatus().setRollbackOnly(); 
+			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
 		}
 	}
 
@@ -86,21 +86,12 @@ public class BookService {
 	public List<Book> findByData(Book data) {
 		List<Book> pList = new ArrayList<Book>();
 
-//		if (data.getCategoryId() != 0 && !data.getCategoryId().equals(null)) {
-//			pList = this.libraryRepository.findByCategory(data.getCategoryId());
-//		} else if (!data.getAuthor().equals("") && !data.getAuthor().equals(null)) {
-//			pList = this.libraryRepository.findByAuthor(data.getAuthor());
-//		} else if (data.getId() != 0 && data.getId() != null) {
-//			pList = this.libraryRepository.findById(data.getId());
-//		} else if (!data.getName().equals("") && !data.getName().equals(null)) {
-//			pList = this.libraryRepository.findByName(data.getName());
-//		} else {
-//			pList = this.libraryRepository.getAllBook();
-//		}
-		
-		if ((data.getCategoryId() != 0 && !data.getCategoryId().equals(null)) || (!data.getAuthor().equals("") && !data.getAuthor().equals(null)) ||  (data.getId() != 0 && data.getId() != null)  || (!data.getName().equals("") && !data.getName().equals(null)) ) {
+		if ((data.getCategoryId() != 0 && !data.getCategoryId().equals(null))
+				|| (!data.getAuthor().equals("") && !data.getAuthor().equals(null))
+				|| (data.getId() != 0 && data.getId() != null)
+				|| (!data.getName().equals("") && !data.getName().equals(null))) {
 			pList = this.libraryRepository.findByData(data);
-		}  else {
+		} else {
 			pList = this.libraryRepository.getAllBook();
 		}
 

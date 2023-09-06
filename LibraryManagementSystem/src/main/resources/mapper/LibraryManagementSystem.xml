@@ -34,7 +34,7 @@
 	</update>
 
 	<update id="lendBook" parameterType="com.lib.system.entity.Book">
-		UPDATE book 
+		UPDATE book
 		SET lend_user = #{lendUser}
 		WHERE id = #{id}
 	</update>
@@ -50,11 +50,12 @@
 		SELECT * FROM book order by
 		name
 	</select>
-	
-	
+
+
 	<select id="findById" parameterType="int" resultMap="result">
-		SELECT * FROM book 
-		where id = #{id}  
+		SELECT *
+		FROM book
+		where id = #{id}
 	</select>
 
 	<select id="findByCategory" parameterType="int"
@@ -63,10 +64,11 @@
 		where category_id = #{categoryId} order by
 		name
 	</select>
-	
+
 	<select id="getNewBookId" resultMap="result">
 		SELECT * FROM book ORDER
-		BY id DESC
+		BY
+		id DESC
 		LIMIT 1
 	</select>
 

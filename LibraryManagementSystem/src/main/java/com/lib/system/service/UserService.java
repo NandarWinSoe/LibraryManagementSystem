@@ -24,7 +24,6 @@ public class UserService {
 			this.libraryRepository.addUserData(data);
 		} catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print(e);
 		}
 	}
 	
@@ -38,7 +37,6 @@ public class UserService {
 			result= this.libraryRepository.checkAdmin(userId);
 		}catch (Exception e) {
 			TransactionInterceptor.currentTransactionStatus().setRollbackOnly();
-			System.out.print(e);
 		}
 		return result;
 	}
